@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
 <style>
 :root {
@@ -794,9 +795,22 @@ nav {
 </footer>
 
 <script>
+// ══════════════════════════════════════════════════════════
+//  EMAILJS CONFIGURATION
+//  1. Crie conta gratuita em https://www.emailjs.com
+//  2. Crie um Email Service (Gmail) e anote o Service ID
+//  3. Crie um Email Template e anote o Template ID
+//  4. Vá em Account > API Keys e anote a Public Key
+//  5. Preencha as três constantes abaixo e remova os comentários
+// ══════════════════════════════════════════════════════════
+const EMAILJS_PUBLIC_KEY  = 'YOUR_PUBLIC_KEY';   // ex: 'abc123XYZ'
+const EMAILJS_SERVICE_ID  = 'YOUR_SERVICE_ID';   // ex: 'service_idgp'
+const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';  // ex: 'template_sorbonne'
+const EMAIL_CONFIGURED    = false; // ← mude para true após configurar acima
+// ══════════════════════════════════════════════════════════
+
 // ── STATE ──
 let currentStep = 1;
-const TOTAL_STEPS = 9;
 const DB_KEY = 'idgp_sorbonne_2026';
 let lastSubmission = null;
 
@@ -804,15 +818,15 @@ let lastSubmission = null;
 document.getElementById('sig-date').value = new Date().toISOString().split('T')[0];
 
 // ── NOTIFICATION ──
-function showNotif(msg) {
+function showNotif(msg, duration) {
   const n = document.getElementById('notif');
   n.textContent = msg; n.classList.add('show');
-  setTimeout(() => n.classList.remove('show'), 3000);
+  setTimeout(() => n.classList.remove('show'), duration || 3200);
 }
 
 // ── PROGRESS ──
 function updateProgress(step) {
-  document.querySelectorAll('.prog-step').forEach((el, i) => {
+  document.querySelectorAll('.prog-step').forEach(el => {
     el.classList.remove('active','done');
     const s = parseInt(el.dataset.step);
     if (s === step) el.classList.add('active');
@@ -824,207 +838,438 @@ function updateProgress(step) {
 function showStep(step) {
   document.querySelectorAll('.form-section').forEach(s => s.classList.remove('active'));
   const el = document.getElementById(`step-${step}`);
-  if(el) { el.classList.add('active'); window.scrollTo({top:0,behavior:'smooth'}); }
+  if (el) { el.classList.add('active'); window.scrollTo({top: 0, behavior: 'smooth'}); }
   updateProgress(step);
   currentStep = step;
 }
 
-function goToStep(step) {
-  if(step < currentStep) showStep(step);
-}
-
+function goToStep(step) { if (step < currentStep) showStep(step); }
 function prevStep(current) { showStep(current - 1); }
-
-function nextStep(current) {
-  if(!validateStep(current)) return;
-  showStep(current + 1);
-}
+function nextStep(current) { if (validateStep(current)) showStep(current + 1); }
 
 // ── VALIDATION ──
 function validateStep(step) {
   const section = document.getElementById(`step-${step}`);
   let valid = true;
-
-  // Clear previous errors
   section.querySelectorAll('.err').forEach(el => el.classList.remove('err'));
 
-  // Required inputs / selects / textareas
   section.querySelectorAll('[required]').forEach(el => {
-    if(el.type === 'checkbox') {
-      if(!el.checked) { markErr(el); valid = false; }
-    } else if(el.type === 'radio') {
-      const name = el.name;
-      const group = section.querySelectorAll(`[name="${name}"]`);
-      const checked = Array.from(group).some(r => r.checked);
-      if(!checked) { markErr(el); valid = false; }
+    if (el.type === 'checkbox') {
+      if (!el.checked) { markErr(el); valid = false; }
+    } else if (el.type === 'radio') {
+      const checked = Array.from(section.querySelectorAll(`[name="${el.name}"]`)).some(r => r.checked);
+      if (!checked) { markErr(el); valid = false; }
     } else {
-      if(!el.value.trim()) { markErr(el); valid = false; }
+      if (!el.value.trim()) { markErr(el); valid = false; }
     }
   });
 
-  // Email format
   const emailEl = section.querySelector('[type="email"]');
-  if(emailEl && emailEl.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailEl.value)) {
+  if (emailEl && emailEl.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailEl.value)) {
     markErr(emailEl); valid = false;
   }
 
-  if(!valid) showNotif('Please fill in all required fields.');
+  if (!valid) showNotif('Please fill in all required fields.');
   return valid;
 }
 
 function markErr(el) {
   el.classList.add('err');
-  el.addEventListener('input', () => el.classList.remove('err'), {once:true});
-  el.addEventListener('change', () => el.classList.remove('err'), {once:true});
+  el.addEventListener('input',  () => el.classList.remove('err'), {once: true});
+  el.addEventListener('change', () => el.classList.remove('err'), {once: true});
+}
+
+// ══════════════════════════════════════════════════════════
+//  COLLECT ALL FORM DATA — captura todos os campos de todas
+//  as seções, incluindo checkboxes e radio buttons
+// ══════════════════════════════════════════════════════════
+function collectAllFormData() {
+  const form = document.getElementById('main-form');
+  const data = {};
+
+  // Inputs, selects, textareas (text, email, tel, url, date, select)
+  form.querySelectorAll('input:not([type="checkbox"]):not([type="radio"]), select, textarea').forEach(el => {
+    if (el.name) data[el.name] = el.value.trim();
+  });
+
+  // Radio buttons — captura o valor selecionado por grupo
+  const radioNames = new Set();
+  form.querySelectorAll('input[type="radio"]').forEach(el => { if (el.name) radioNames.add(el.name); });
+  radioNames.forEach(name => {
+    const checked = form.querySelector(`input[type="radio"][name="${name}"]:checked`);
+    data[name] = checked ? checked.value : '';
+  });
+
+  // Checkboxes — captura estado de cada um individualmente
+  form.querySelectorAll('input[type="checkbox"]').forEach(el => {
+    if (el.name) data[el.name] = el.checked ? 'Sim' : 'Não';
+  });
+
+  return data;
 }
 
 // ── DB ──
 function saveApplication(data) {
   try {
-    const apps = JSON.parse(localStorage.getItem(DB_KEY)||'[]');
+    const apps = JSON.parse(localStorage.getItem(DB_KEY) || '[]');
     apps.push({ ...data, submittedAt: new Date().toISOString() });
     localStorage.setItem(DB_KEY, JSON.stringify(apps));
-  } catch(e) { console.error('DB error', e); }
+    console.log('[DB] Saved. Total records:', apps.length);
+  } catch(e) {
+    console.error('[DB] Error:', e);
+  }
 }
 
 // ── FORM SUBMIT ──
 document.getElementById('main-form').addEventListener('submit', function(e) {
   e.preventDefault();
-  if(!validateStep(9)) return;
+  if (!validateStep(9)) return;
 
-  const fd = new FormData(this);
-  const data = {};
-  fd.forEach((v,k) => { data[k] = v; });
-
+  const data = collectAllFormData();
   saveApplication(data);
   lastSubmission = data;
 
   document.getElementById('main-form').style.display = 'none';
   document.querySelector('.progress-bar').style.display = 'none';
   document.getElementById('success-page').style.display = 'block';
-  window.scrollTo({top:0,behavior:'smooth'});
+  window.scrollTo({top: 0, behavior: 'smooth'});
 
-  showNotif('Application submitted!');
-  sendEmail(data);
+  showNotif('Application submitted!', 4000);
+
+  // Gera o PDF e depois envia
+  const pdfBase64 = buildPDF(data, 'base64');
+  sendEmail(data, pdfBase64);
 });
 
-// ── EMAIL ──
-// EmailJS integration — configure at https://www.emailjs.com
-// See README.md for full setup instructions.
-function sendEmail(data) {
-  /*
-  // UNCOMMENT AND CONFIGURE AFTER SETTING UP EMAILJS:
-  emailjs.init("YOUR_PUBLIC_KEY");
-  emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
-    to_email:       "albergarias@idgp.global",
-    subject:        "Nova Inscrição - Programa Sorbonne",
-    applicant_name: data.fullName,
-    applicant_email:data.email,
-    applicant_mobile:data.mobile,
-    company:        data.company,
-    position:       data.position,
-    industry:       data.industry,
-    experience:     data.yearsExp,
-    tuition:        data.tuition==='full'?'Pagamento integral BRL 42.000':'Parcelado até 12x',
-    motivation:     data.motivation,
-    submitted_at:   new Date().toLocaleString('pt-BR'),
-  });
-  */
-
-  // Fallback: mailto
-  const s = encodeURIComponent("Nova Inscrição - Programa Sorbonne");
-  const b = encodeURIComponent(
-    `Nova inscrição recebida — IDGP × Sorbonne 2026\n\n`+
-    `Nome: ${data.fullName}\nEmail: ${data.email}\nTelefone: ${data.mobile}\n`+
-    `Empresa: ${data.company}\nCargo: ${data.position}\nSetor: ${data.industry}\n`+
-    `Experiência: ${data.yearsExp}\nFormação: ${data.degree} — ${data.university}\n`+
-    `Pagamento: ${data.tuition==='full'?'Integral':'Parcelado'}\n`+
-    `Motivação: ${data.motivation}\n\nData: ${new Date().toLocaleString('pt-BR')}`
-  );
-  setTimeout(()=>{ window.location.href=`mailto:albergarias@idgp.global?subject=${s}&body=${b}`; }, 1200);
-}
-
-// ── PDF ──
-function downloadPDF() {
-  if(!lastSubmission) return;
+// ══════════════════════════════════════════════════════════
+//  PDF — função centralizada que retorna base64 ou salva
+// ══════════════════════════════════════════════════════════
+function buildPDF(d, output) {
   const { jsPDF } = window.jspdf;
-  const doc = new jsPDF({ orientation:'portrait', unit:'mm', format:'a4' });
-  const navy=[11,27,63], gold=[201,168,76], white=[255,255,255], lgray=[100,95,85];
-  const d = lastSubmission;
+  const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+  const navy  = [11, 27, 63];
+  const gold  = [201, 168, 76];
+  const white = [255, 255, 255];
+  const lgray = [100, 95, 85];
+  const dark  = [28, 24, 20];
 
-  // Header
-  doc.setFillColor(...navy); doc.rect(0,0,210,52,'F');
-  doc.setFillColor(...gold); doc.rect(0,52,210,2,'F');
+  // ── Header ──
+  doc.setFillColor(...navy); doc.rect(0, 0, 210, 54, 'F');
+  doc.setFillColor(...gold); doc.rect(0, 54, 210, 2, 'F');
+
   doc.setTextColor(...white);
-  doc.setFont('times','bold'); doc.setFontSize(15);
-  doc.text('INTERNATIONAL CERTIFICATE IN PROJECT MANAGEMENT',105,16,{align:'center'});
-  doc.setFont('times','normal'); doc.setFontSize(12);
-  doc.text('AND ORGANIZATIONAL PERFORMANCE',105,24,{align:'center'});
+  doc.setFont('times', 'bold'); doc.setFontSize(15);
+  doc.text('INTERNATIONAL CERTIFICATE IN PROJECT MANAGEMENT', 105, 17, {align: 'center'});
+  doc.setFont('times', 'normal'); doc.setFontSize(12);
+  doc.text('AND ORGANIZATIONAL PERFORMANCE', 105, 25, {align: 'center'});
   doc.setTextColor(...gold); doc.setFontSize(9);
-  doc.text('IDGP ACADEMY × IAE PARIS — SORBONNE BUSINESS SCHOOL',105,33,{align:'center'});
-  doc.setTextColor(210,200,180); doc.setFontSize(8.5);
-  doc.text('Executive Application & Enrollment Form · 2026 Cohort',105,42,{align:'center'});
+  doc.text('IDGP ACADEMY × IAE PARIS — SORBONNE BUSINESS SCHOOL', 105, 34, {align: 'center'});
+  doc.setTextColor(210, 200, 180); doc.setFontSize(8.5);
+  doc.text('Executive Application & Enrollment Form · 2026 First Cohort', 105, 43, {align: 'center'});
+  doc.setFontSize(7.5);
+  doc.text(`Submitted: ${new Date().toLocaleString('pt-BR')}`, 105, 50, {align: 'center'});
 
-  let y=64;
+  let y = 66;
 
   function secHead(title) {
-    if(y>270){doc.addPage();y=20;}
-    doc.setFillColor(238,234,225); doc.rect(10,y-5,190,10,'F');
-    doc.setFillColor(...gold); doc.rect(10,y-5,3,10,'F');
-    doc.setTextColor(...navy); doc.setFontSize(8.5); doc.setFont('helvetica','bold');
-    doc.text(title.toUpperCase(),16,y+1.5); y+=13; doc.setFont('helvetica','normal');
+    if (y > 268) { doc.addPage(); y = 18; }
+    doc.setFillColor(238, 234, 225); doc.rect(10, y - 5, 190, 10, 'F');
+    doc.setFillColor(...gold); doc.rect(10, y - 5, 3, 10, 'F');
+    doc.setTextColor(...navy); doc.setFontSize(8.5); doc.setFont('helvetica', 'bold');
+    doc.text(title.toUpperCase(), 16, y + 1.5);
+    y += 13; doc.setFont('helvetica', 'normal');
   }
 
-  function row(lbl,val) {
-    if(y>272){doc.addPage();y=20;}
-    doc.setTextColor(...lgray); doc.setFontSize(7); doc.setFont('helvetica','bold');
-    doc.text(lbl+':',12,y);
-    doc.setTextColor(28,24,20); doc.setFontSize(8.5); doc.setFont('helvetica','normal');
-    const lines=doc.splitTextToSize(String(val||'—'),132);
-    doc.text(lines,62,y); y+=Math.max(6.5,lines.length*5);
+  function row(lbl, val) {
+    if (y > 272) { doc.addPage(); y = 18; }
+    doc.setTextColor(...lgray); doc.setFontSize(7); doc.setFont('helvetica', 'bold');
+    doc.text(lbl + ':', 12, y);
+    doc.setTextColor(...dark); doc.setFontSize(8.5); doc.setFont('helvetica', 'normal');
+    const lines = doc.splitTextToSize(String(val || '—'), 134);
+    doc.text(lines, 62, y);
+    y += Math.max(6.5, lines.length * 5);
   }
 
+  function yesNo(val) { return val === 'Sim' ? 'Yes ✓' : val === 'Não' ? 'No' : val || '—'; }
+
+  // ── Section 1 ──
   secHead('Section 1 — Personal Information');
-  row('Full Name',d.fullName); row('Preferred Name',d.preferredName);
-  row('Nationality',d.nationality); row('Date of Birth',d.dob);
-  row('Passport / ID',d.passportId); row('CPF',d.cpf);
-  row('Address',d.address); row('Email',d.email);
-  row('Mobile / WhatsApp',d.mobile); row('LinkedIn',d.linkedin); y+=3;
+  row('Full Name',          d.fullName);
+  row('Preferred Name',     d.preferredName);
+  row('Nationality',        d.nationality);
+  row('Date of Birth',      d.dob);
+  row('Passport / ID',      d.passportId);
+  row('CPF',                d.cpf);
+  row('Address',            d.address);
+  row('Email',              d.email);
+  row('Mobile / WhatsApp',  d.mobile);
+  row('LinkedIn',           d.linkedin);
+  y += 3;
 
+  // ── Section 2 ──
   secHead('Section 2 — Professional Profile');
-  row('Company',d.company); row('Position',d.position);
-  row('Industry',d.industry); row('Experience',d.yearsExp);
-  row('Leadership',d.leadership); row('Team/Scope',d.teamSize); y+=3;
+  row('Current Company',    d.company);
+  row('Position / Title',   d.position);
+  row('Industry Sector',    d.industry);
+  row('Years of Experience',d.yearsExp);
+  row('Leadership Role',    yesNo(d.leadership));
+  row('Team Size / Scope',  d.teamSize);
+  y += 3;
 
+  // ── Section 3 ──
   secHead('Section 3 — Education Background');
-  row('Degree',d.degree); row('University',d.university);
-  row('Certifications',d.certifications); y+=3;
+  row('Highest Degree',     d.degree);
+  row('University',         d.university);
+  row('Certifications',     d.certifications);
+  y += 3;
 
+  // ── Section 4 ──
   secHead('Section 4 — Application Questions');
-  row('1. Motivation',d.motivation);
-  row('2. Challenge',d.challenge);
-  row('3. Expectations (Paris)',d.expectation); y+=3;
+  row('1. Motivation',          d.motivation);
+  row('2. Professional Challenge', d.challenge);
+  row('3. Paris Expectations',  d.expectation);
+  y += 3;
 
+  // ── Section 5 ──
+  secHead('Section 5 — Program Format Acknowledgment');
+  row('Module 1 (Rio, Jun 18–21)',     yesNo(d.ack1));
+  row('Online Sessions (Jul–Oct)',     yesNo(d.ack2));
+  row('Paris Immersion (Nov 2–6)',     yesNo(d.ack3));
+  row('120h / 4 Modules workload',    yesNo(d.ack4));
+  y += 3;
+
+  // ── Section 6 ──
   secHead('Section 6 — Tuition Option');
-  row('Selected',d.tuition==='full'?'BRL 42,000.00 — Full payment':'Credit card installments (up to 12x)'); y+=3;
+  row('Selected Option', d.tuition === 'full' ? 'BRL 42,000.00 — Full payment' : 'Credit card installments (up to 12x)');
+  y += 3;
 
-  secHead('Section 9 — Signature');
-  row('Full Name',d.sigName); row('Date',d.sigDate);
-  row('Digital Signature',d.signature);
+  // ── Section 7 ──
+  secHead('Section 7 — Required Documents');
+  row('Passport / ID',          yesNo(d.doc1));
+  row('Updated CV / Résumé',    yesNo(d.doc2));
+  row('LinkedIn Profile',       yesNo(d.doc3));
+  row('Professional Photo',     yesNo(d.doc4));
+  y += 3;
 
-  // Footer all pages
-  const np=doc.getNumberOfPages();
-  for(let i=1;i<=np;i++){
+  // ── Section 8 ──
+  secHead('Section 8 — Terms & Conditions');
+  row('Admission subject to review',              yesNo(d.terms1));
+  row('Dates/faculty may be adjusted',            yesNo(d.terms2));
+  row('Travel arrangements by participant',       yesNo(d.terms3));
+  row('Certificate requires full settlement',     yesNo(d.terms4));
+  row('Personal data usage accepted',             yesNo(d.terms5));
+  row('Enrollment T&C accepted',                  yesNo(d.terms6));
+  y += 3;
+
+  // ── Section 9 ──
+  secHead('Section 9 — Digital Signature');
+  row('Full Name (signature)', d.sigName);
+  row('Date',                  d.sigDate);
+  row('Digital Signature',     d.signature);
+
+  // ── Footer ──
+  const np = doc.getNumberOfPages();
+  for (let i = 1; i <= np; i++) {
     doc.setPage(i);
-    doc.setFillColor(...navy); doc.rect(0,285,210,12,'F');
+    doc.setFillColor(...navy); doc.rect(0, 285, 210, 12, 'F');
     doc.setTextColor(...gold); doc.setFontSize(6.5);
-    doc.text('IDGP ACADEMY × SORBONNE BUSINESS SCHOOL · 2026 COHORT',10,291);
-    doc.setTextColor(160,150,130); doc.text(`${i}/${np}`,200,291,{align:'right'});
+    doc.text('IDGP ACADEMY × SORBONNE BUSINESS SCHOOL · 2026 FIRST COHORT', 10, 292);
+    doc.setTextColor(160, 150, 130);
+    doc.text(`Page ${i} of ${np}`, 200, 292, {align: 'right'});
   }
 
-  const fname=(d.fullName||'Application').replace(/\s+/g,'_');
-  doc.save(`IDGP_Sorbonne_Application_${fname}.pdf`);
-  showNotif('PDF downloaded.');
+  if (output === 'base64') {
+    return doc.output('datauristring'); // data:application/pdf;base64,...
+  } else {
+    const fname = (d.fullName || 'Application').replace(/\s+/g, '_');
+    doc.save(`IDGP_Sorbonne_Application_${fname}.pdf`);
+    showNotif('PDF downloaded.');
+  }
+}
+
+// Botão de download na tela de sucesso
+function downloadPDF() {
+  if (!lastSubmission) { showNotif('No data found. Please resubmit.'); return; }
+  buildPDF(lastSubmission, 'save');
+}
+
+// ══════════════════════════════════════════════════════════
+//  EMAIL — EmailJS com PDF em base64 no corpo HTML
+//  O PDF não pode ser enviado como attachment binário via
+//  EmailJS free tier, mas é incluído como link de download
+//  e o corpo do e-mail traz todos os dados da inscrição.
+//
+//  TEMPLATE EmailJS recomendado (cole no campo "Content"):
+//  Assunto: Nova Inscrição - Programa Sorbonne
+//  De:      {{from_name}}
+//  Para:    albergarias@idgp.global
+//  Corpo:   {{{html_body}}}   ← triple braces para HTML
+// ══════════════════════════════════════════════════════════
+function sendEmail(data, pdfBase64) {
+  if (!EMAIL_CONFIGURED) {
+    // Fallback: abre cliente de e-mail com todos os dados
+    const subject = encodeURIComponent('Nova Inscrição - Programa Sorbonne');
+    const body = encodeURIComponent(buildEmailText(data));
+    setTimeout(() => {
+      window.location.href = `mailto:albergarias@idgp.global?subject=${subject}&body=${body}`;
+    }, 1400);
+    return;
+  }
+
+  // EmailJS configurado — envia e-mail HTML com todos os dados
+  emailjs.init(EMAILJS_PUBLIC_KEY);
+
+  const htmlBody = buildEmailHTML(data);
+
+  emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+    to_email:      'albergarias@idgp.global',
+    subject:       'Nova Inscrição - Programa Sorbonne',
+    from_name:     data.fullName || 'Candidato',
+    reply_to:      data.email || '',
+    html_body:     htmlBody,
+    // Campos resumo (úteis se o template usar variáveis individuais)
+    nome:          data.fullName,
+    email:         data.email,
+    telefone:      data.mobile,
+    empresa:       data.company,
+    cargo:         data.position,
+    setor:         data.industry,
+    experiencia:   data.yearsExp,
+    formacao:      `${data.degree || ''} — ${data.university || ''}`,
+    pagamento:     data.tuition === 'full' ? 'Pagamento integral BRL 42.000' : 'Parcelado em até 12x',
+    motivacao:     data.motivation,
+    data_envio:    new Date().toLocaleString('pt-BR'),
+  }).then(() => {
+    showNotif('E-mail enviado para albergarias@idgp.global', 5000);
+  }).catch(err => {
+    console.error('[EmailJS]', err);
+    // Fallback em caso de erro
+    const subject = encodeURIComponent('Nova Inscrição - Programa Sorbonne');
+    const body    = encodeURIComponent(buildEmailText(data));
+    window.location.href = `mailto:albergarias@idgp.global?subject=${subject}&body=${body}`;
+  });
+}
+
+// Texto plano para fallback mailto
+function buildEmailText(d) {
+  return [
+    'NOVA INSCRIÇÃO — IDGP × SORBONNE 2026',
+    '========================================',
+    '',
+    '[ DADOS PESSOAIS ]',
+    `Nome completo: ${d.fullName}`,
+    `Email: ${d.email}`,
+    `Telefone / WhatsApp: ${d.mobile}`,
+    `Nacionalidade: ${d.nationality}`,
+    `Data de nascimento: ${d.dob}`,
+    `CPF: ${d.cpf}`,
+    `Passaporte/ID: ${d.passportId}`,
+    `Endereço: ${d.address}`,
+    `LinkedIn: ${d.linkedin}`,
+    '',
+    '[ PERFIL PROFISSIONAL ]',
+    `Empresa: ${d.company}`,
+    `Cargo: ${d.position}`,
+    `Setor: ${d.industry}`,
+    `Experiência: ${d.yearsExp}`,
+    `Liderança: ${d.leadership}`,
+    `Equipe/Escopo: ${d.teamSize}`,
+    '',
+    '[ FORMAÇÃO ACADÊMICA ]',
+    `Grau: ${d.degree}`,
+    `Instituição: ${d.university}`,
+    `Certificações: ${d.certifications}`,
+    '',
+    '[ QUESTÕES DA CANDIDATURA ]',
+    `1. Motivação:\n${d.motivation}`,
+    `2. Desafio profissional:\n${d.challenge}`,
+    `3. Expectativas Paris:\n${d.expectation}`,
+    '',
+    '[ OPÇÃO DE PAGAMENTO ]',
+    d.tuition === 'full' ? 'BRL 42.000 — Pagamento integral' : 'Parcelado em até 12x',
+    '',
+    '[ ASSINATURA ]',
+    `Nome: ${d.sigName}`,
+    `Data: ${d.sigDate}`,
+    `Assinatura digital: ${d.signature}`,
+    '',
+    '[ TERMOS ]',
+    `T&C aceitos: ${d.terms6}`,
+    '',
+    `Enviado em: ${new Date().toLocaleString('pt-BR')}`,
+  ].join('\n');
+}
+
+// HTML rico para corpo do e-mail EmailJS
+function buildEmailHTML(d) {
+  const s = (v) => v || '<span style="color:#999">—</span>';
+  const yn = (v) => v === 'Sim' ? '✅ Sim' : v === 'Não' ? '☐ Não' : s(v);
+  const row = (l, v) => `<tr><td style="padding:6px 12px;font-weight:600;color:#555;font-size:12px;white-space:nowrap;vertical-align:top;border-bottom:1px solid #eee;width:180px">${l}</td><td style="padding:6px 12px;color:#1a1a1a;font-size:13px;border-bottom:1px solid #eee">${s(v)}</td></tr>`;
+  const sec = (t) => `<tr><td colspan="2" style="background:#0B1B3F;color:#C9A84C;padding:10px 14px;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase">${t}</td></tr>`;
+
+  return `
+<div style="font-family:Arial,sans-serif;max-width:680px;margin:0 auto;border:1px solid #ddd">
+  <div style="background:#0B1B3F;padding:28px 32px;text-align:center">
+    <div style="color:#C9A84C;font-size:11px;letter-spacing:3px;font-weight:700;margin-bottom:8px">IDGP ACADEMY × IAE PARIS — SORBONNE BUSINESS SCHOOL</div>
+    <div style="color:#fff;font-size:19px;font-weight:700">Nova Inscrição Recebida</div>
+    <div style="color:rgba(255,255,255,0.6);font-size:13px;margin-top:6px">International Certificate in Project Management and Organizational Performance</div>
+    <div style="width:50px;height:2px;background:#C9A84C;margin:16px auto 0"></div>
+  </div>
+  <table style="width:100%;border-collapse:collapse">
+    ${sec('1 — Dados Pessoais')}
+    ${row('Nome completo', d.fullName)}
+    ${row('Email', d.email)}
+    ${row('Telefone / WhatsApp', d.mobile)}
+    ${row('Nacionalidade', d.nationality)}
+    ${row('Data de nascimento', d.dob)}
+    ${row('CPF', d.cpf)}
+    ${row('Passaporte / ID', d.passportId)}
+    ${row('Endereço', d.address)}
+    ${row('LinkedIn', d.linkedin)}
+    ${sec('2 — Perfil Profissional')}
+    ${row('Empresa', d.company)}
+    ${row('Cargo', d.position)}
+    ${row('Setor', d.industry)}
+    ${row('Experiência', d.yearsExp)}
+    ${row('Liderança', yn(d.leadership))}
+    ${row('Equipe / Escopo', d.teamSize)}
+    ${sec('3 — Formação Acadêmica')}
+    ${row('Grau', d.degree)}
+    ${row('Instituição', d.university)}
+    ${row('Certificações', d.certifications)}
+    ${sec('4 — Questões da Candidatura')}
+    ${row('1. Motivação', d.motivation)}
+    ${row('2. Desafio profissional', d.challenge)}
+    ${row('3. Expectativas (Paris)', d.expectation)}
+    ${sec('5 — Reconhecimento do Formato')}
+    ${row('Módulo 1 — Rio (Jun 18–21)', yn(d.ack1))}
+    ${row('Sessões Online (Jul–Out)', yn(d.ack2))}
+    ${row('Imersão Paris (Nov 2–6)', yn(d.ack3))}
+    ${row('120h / 4 Módulos', yn(d.ack4))}
+    ${sec('6 — Opção de Pagamento')}
+    ${row('Escolha', d.tuition === 'full' ? '💳 BRL 42.000 — Pagamento integral' : '💳 Parcelado em até 12x')}
+    ${sec('7 — Documentos')}
+    ${row('Passaporte / ID', yn(d.doc1))}
+    ${row('CV / Currículo', yn(d.doc2))}
+    ${row('LinkedIn', yn(d.doc3))}
+    ${row('Foto profissional', yn(d.doc4))}
+    ${sec('8 — Termos e Condições')}
+    ${row('Admissão sujeita a análise', yn(d.terms1))}
+    ${row('Ajustes de datas aceitos', yn(d.terms2))}
+    ${row('Viagem por conta do participante', yn(d.terms3))}
+    ${row('Certificado sujeito a quitação', yn(d.terms4))}
+    ${row('Uso de dados autorizado', yn(d.terms5))}
+    ${row('T&C aceitos', yn(d.terms6))}
+    ${sec('9 — Assinatura Digital')}
+    ${row('Nome (assinatura)', d.sigName)}
+    ${row('Data', d.sigDate)}
+    ${row('Assinatura digital', `<em>${d.signature}</em>`)}
+  </table>
+  <div style="background:#07122B;padding:16px 24px;text-align:center">
+    <div style="color:#C9A84C;font-size:10px;letter-spacing:2px">IDGP ACADEMY · albergarias@idgp.global</div>
+    <div style="color:rgba(255,255,255,0.35);font-size:10px;margin-top:4px">Enviado automaticamente em ${new Date().toLocaleString('pt-BR')}</div>
+  </div>
+</div>`;
 }
 </script>
 </body>
