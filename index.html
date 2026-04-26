@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>International Certificate in Project Management & Organizational Performance | IDGP × Sorbonne</title>
+<meta name="description" content="120-hour executive program delivered jointly in Brazil and Europe. IDGP Academy in partnership with Sorbonne Business School — IAE Paris.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --navy:       #0B1B3F;
+  --navy-mid:   #1A2D5A;
+  --dark:       #07122B;
+  --darkest:    #050D1E;
+  --gold:       #C9A84C;
+  --gold-light: #E8C96A;
+  --white:      #FFFFFF;
+  --off-white:  #F8F6F0;
+  --text-dark:  #1C1A16;
+  --text-mid:   #4A4438;
+  --gray:       #9A9080;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Cormorant Garamond', serif;
+  background: var(--navy);
+  color: var(--white);
+  overflow-x: hidden;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed;
+  top:0; left:0; right:0;
+  z-index: 1000;
+  padding: 18px 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(11,27,63,0.93);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(201,168,76,0.18);
+  transition: padding 0.3s;
+}
+
+.nav-logos { display:flex; align-items:center; gap:20px; }
+
+.nav-logo-text {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px; font-weight:600;
+  letter-spacing: 2.5px; text-transform: uppercase;
+  color: var(--gold); line-height: 1.4;
+}
+
+.nav-sep { width:1px; height:32px; background: rgba(201,168,76,0.28); }
+
+.nav-links { display:flex; gap:36px; list-style:none; }
+
+.nav-links a {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px; font-weight:500;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: rgba(255,255,255,0.72); text-decoration:none;
+  transition: color 0.3s;
+}
+.nav-links a:hover { color: var(--gold); }
+
+.nav-cta {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px; font-weight:700;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--navy) !important;
+  background: var(--gold);
+  padding: 11px 24px; text-decoration:none;
+  transition: all 0.3s;
+}
+.nav-cta:hover { background: var(--gold-light) !important; transform: translateY(-1px); }
+
+/* ── HERO ── */
+#hero {
+  min-height: 100vh;
+  position: relative;
+  display: flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  text-align:center;
+  padding: 120px 40px 90px;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position:absolute; inset:0;
+  background:
+    radial-gradient(ellipse 80% 55% at 50% 0%, rgba(201,168,76,0.09) 0%, transparent 60%),
+    radial-gradient(ellipse 55% 75% at 15% 100%, rgba(26,45,90,0.7) 0%, transparent 55%),
+    linear-gradient(180deg, #0B1B3F 0%, #07122B 45%, #050D1E 100%);
+}
+
+.hero-grid {
+  position:absolute; inset:0;
+  background-image:
+    linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px);
+  background-size: 80px 80px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 80%);
+}
+
+.hero-content { position:relative; z-index:2; max-width:920px; }
+
+.hero-badge {
+  display:inline-flex; align-items:center; gap:14px;
+  border: 1px solid rgba(201,168,76,0.38);
+  padding: 8px 26px; margin-bottom:36px;
+  font-family: 'Montserrat', sans-serif;
+  font-size:9px; font-weight:600;
+  letter-spacing:3.5px; text-transform:uppercase;
+  color: var(--gold);
+  opacity:0; animation: fadeUp 0.8s 0.3s forwards;
+}
+.hero-badge::before,.hero-badge::after {
+  content:''; display:block; width:22px; height:1px;
+  background:var(--gold); opacity:0.55;
+}
+
+.hero-eyebrow {
+  font-family:'Montserrat',sans-serif;
+  font-size:10px; font-weight:500;
+  letter-spacing:4px; text-transform:uppercase;
+  color: var(--gold); margin-bottom:22px;
+  opacity:0; animation: fadeUp 0.8s 0.5s forwards;
+}
+
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(38px, 5.5vw, 68px);
+  font-weight:600; line-height:1.12;
+  color: var(--white); margin-bottom:16px;
+  opacity:0; animation: fadeUp 0.8s 0.7s forwards;
+}
+h1 em { font-style:italic; color: var(--gold-light); }
+
+.hero-sub {
+  font-family:'Cormorant Garamond',serif;
+  font-size: clamp(17px, 2.1vw, 23px);
+  font-weight:300; color:rgba(255,255,255,0.68);
+  font-style:italic; margin-bottom:18px;
+  opacity:0; animation: fadeUp 0.8s 0.9s forwards;
+}
+
+.hero-partner {
+  font-family:'Montserrat',sans-serif;
+  font-size:10px; font-weight:500;
+  letter-spacing:3px; text-transform:uppercase;
+  color:rgba(201,168,76,0.68); margin-bottom:52px;
+  opacity:0; animation: fadeUp 0.8s 1.0s forwards;
+}
+
+.hero-stats {
+  display:flex; align-items:center; justify-content:center;
+  margin-bottom:52px;
+  opacity:0; animation: fadeUp 0.8s 1.1s forwards;
+}
+
+.hero-stat {
+  padding: 22px 38px;
+  border: 1px solid rgba(201,168,76,0.2);
+  text-align:center;
+}
+.hero-stat:not(:last-child) { border-right:none; }
+
+.hs-num {
+  font-family:'Playfair Display',serif;
+  font-size:36px; font-weight:600;
+  color:var(--gold); line-height:1; display:block;
+}
+.hs-lbl {
+  font-family:'Montserrat',sans-serif;
+  font-size:9px; font-weight:500;
+  letter-spacing:2px; text-transform:uppercase;
+  color:rgba(255,255,255,0.48); margin-top:5px; display:block;
+}
+
+.hero-ctas {
+  display:flex; gap:20px; justify-content:center; flex-wrap:wrap;
+  opacity:0; animation: fadeUp 0.8s 1.3s forwards;
+}
+
+.btn-primary {
+  font-family:'Montserrat',sans-serif;
+  font-size:11px; font-weight:700;
+  letter-spacing:2.5px; text-transform:uppercase;
+  color:var(--navy); background:var(--gold);
+  padding:16px 42px; text-decoration:none;
+  border:2px solid var(--gold);
+  transition: all 0.3s; display:inline-block;
+}
+.btn-primary:hover {
+  background:var(--gold-light); border-color:var(--gold-light);
+  transform:translateY(-2px); box-shadow:0 8px 28px rgba(201,168,76,0.28);
+}
+
+.btn-outline {
+  font-family:'Montserrat',sans-serif;
+  font-size:11px; font-weight:600;
+  letter-spacing:2.5px; text-transform:uppercase;
+  color:var(--gold); background:transparent;
+  padding:16px 42px; text-decoration:none;
+  border:2px solid rgba(201,168,76,0.38);
+  transition: all 0.3s; display:inline-block;
+}
+.btn-outline:hover {
+  border-color:var(--gold); background:rgba(201,168,76,0.07);
+  transform:translateY(-2px);
+}
+
+.scroll-hint {
+  position:absolute; bottom:38px; left:50%;
+  transform:translateX(-50%);
+  display:flex; flex-direction:column; align-items:center; gap:8px;
+  opacity:0; animation: fadeIn 1s 2s forwards;
+}
+.scroll-line {
+  width:1px; height:48px;
+  background: linear-gradient(to bottom, rgba(201,168,76,0.6), transparent);
+  animation: pulse 2.2s infinite;
+}
+.scroll-txt {
+  font-family:'Montserrat',sans-serif;
+  font-size:8px; letter-spacing:3px; text-transform:uppercase;
+  color:rgba(201,168,76,0.45);
+}
+
+/* ── SHARED ── */
+.s-dark    { background: var(--navy); }
+.s-darker  { background: var(--dark); }
+.s-light   { background: var(--off-white); color: var(--text-dark); }
+
+.reveal {
+  opacity:0; transform:translateY(38px);
+  transition: opacity 0.85s ease, transform 0.85s ease;
+}
+.reveal.visible { opacity:1; transform:translateY(0); }
+
+.s-label {
+  font-family:'Montserrat',sans-serif;
+  font-size:9px; font-weight:600;
+  letter-spacing:4px; text-transform:uppercase;
+  color:var(--gold); margin-bottom:14px; display:block;
+}
+
+.s-divider { width:54px; height:2px; background:var(--gold); margin:0 0 22px; }
+.s-divider.center { margin:0 auto 22px; }
+
+.s-title {
+  font-family:'Playfair Display',serif;
+  font-size: clamp(28px,3.8vw,46px);
+  font-weight:600; line-height:1.2; margin-bottom:18px;
+}
+.s-title em { font-style:italic; color:var(--gold-light); }
+.s-light .s-title em { color:var(--gold); }
+.s-light .s-title { color:var(--text-dark); }
+
+.s-body {
+  font-family:'Cormorant Garamond',serif;
+  font-size:19px; font-weight:400;
+  line-height:1.82; color:rgba(255,255,255,0.7);
+}
+.s-body.dark { color:var(--text-mid); }
+
+/* ── WELCOME ── */
+#welcome { padding:120px 60px; }
+
+.welcome-grid {
+  max-width:1200px; margin:0 auto;
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:90px; align-items:center;
+}
+
+.w-highlights {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:1px; background:rgba(201,168,76,0.13);
+  border:1px solid rgba(201,168,76,0.13);
+  margin-top:42px;
+}
+
+.wh {
+  background:rgba(11,27,63,0.97);
+  padding:28px 24px;
+  transition: background 0.3s;
+}
+.wh:hover { background:rgba(26,45,90,0.9); }
+
+.wh-num {
+  font-family:'Playfair Display',serif;
+  font-size:40px; font-weight:600;
+  color:var(--gold); line-height:1; margin-bottom:5px;
+}
+.wh-lbl {
+  font-family:'Montserrat',sans-serif;
+  font-size:9px; font-weight:500;
+  letter-spacing:2px; text-transform:uppercase;
+  color:rgba(255,255,255,0.47);
+}
+
+/* ── SORBONNE ── */
+#sorbonne { padding:120px 60px; }
+
+.sorb-inner { max-width:1200px; margin:0 auto; }
+
+.sorb-grid {
+  display:grid; grid-template-columns:repeat(4,1fr);
+  gap:1px; background:rgba(201,168,76,0.08);
+  border:1px solid rgba(201,168,76,0.08);
+  margin-top:60px;
+}
+
+.sorb-stat {
+  background:var(--dark);
+  padding:38px 26px; text-align:center;
+  transition: background 0.3s;
+}
+.sorb-stat:hover { background:rgba(26,45,90,0.65); }
+
+.ss-num {
+  font-family:'Playfair Display',serif;
+  font-size:42px; font-weight:600; color:var(--gold);
+  display:block; line-height:1; margin-bottom:9px;
+}
+.ss-lbl {
+  font-family:'Montserrat',sans-serif;
+  font-size:9px; font-weight:500;
+  letter-spacing:2px; text-transform:uppercase;
+  color:rgba(255,255,255,0.5);
+}
+
+/* ── MODULES ── */
+#modules { padding:120px 60px; }
+
+.mod-inner { max-width:1200px; margin:0 auto; }
+.mod-header { text-align:center; margin-bottom:68px; }
+
+.mod-grid {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:2px; background:rgba(201,168,76,0.08);
+}
+
+.mod-card {
+  background:var(--navy);
+  padding:46px 42px;
+  position:relative; overflow:hidden;
+  transition: background 0.3s;
+}
+.mod-card::before {
+  content:''; position:absolute;
+  top:0; left:0; width:3px; height:0;
+  background:var(--gold); transition:height 0.4s;
+}
+.mod-card:hover { background:rgba(26,45,90,0.9); }
+.mod-card:hover::before { height:100%; }
+
+.mod-bg-num {
+  font-family:'Playfair Display',serif;
+  font-size:80px; font-weight:700;
+  color:rgba(201,168,76,0.08);
+  position:absolute; top:14px; right:26px;
+  line-height:1; pointer-events:none;
+  transition:color 0.3s;
+}
+.mod-card:hover .mod-bg-num { color:rgba(201,168,76,0.13); }
+
+.mod-tag {
+  font-family:'Montserrat',sans-serif;
+  font-size:8.5px; font-weight:600;
+  letter-spacing:2.5px; text-transform:uppercase;
+  color:var(--gold); margin-bottom:10px;
+}
+
+.mod-title {
+  font-family:'Playfair Display',serif;
+  font-size:21px; font-weight:600;
+  color:var(--white); margin-bottom:5px; line-height:1.3;
+}
+
+.mod-hours {
+  font-family:'Montserrat',sans-serif;
+  font-size:9px; font-weight:500;
+  letter-spacing:2px; text-transform:uppercase;
+  color:rgba(201,168,76,0.58); margin-bottom:26px;
+}
+
+.mod-topics { list-style:none; }
+.mod-topics li {
+  font-family:'Cormorant Garamond',serif;
+  font-size:16px; color:rgba(255,255,255,0.62);
+  padding:6px 0; border-bottom:1px solid rgba(201,168,76,0.07);
+  display:flex; align-items:flex-start; gap:10px;
+}
+.mod-topics li::before {
+  content:'—'; color:var(--gold); opacity:0.45;
+  flex-shrink:0; margin-top:1px;
+}
+
+/* ── CALENDAR ── */
+#calendar { padding:120px 60px; }
+
+.cal-inner { max-width:1100px; margin:0 auto; }
+.cal-header { text-align:center; margin-bottom:68px; }
+
+.cal-rows { display:flex; flex-direction:column; gap:2px; }
+
+.cal-row {
+  display:grid; grid-template-columns:270px 1fr;
+  background:var(--navy); overflow:hidden;
+  min-height:88px;
+}
+
+.cal-info {
+  padding:26px 30px;
+  display:flex; flex-direction:column; justify-content:center;
+  position:relative;
+}
+.cal-info::after {
+  content:''; position:absolute;
+  right:0; top:10%; bottom:10%;
+  width:1px; background:rgba(201,168,76,0.12);
+}
+
+.ci-tag {
+  font-family:'Montserrat',sans-serif;
+  font-size:8px; font-weight:700;
+  letter-spacing:3px; text-transform:uppercase;
+  margin-bottom:5px;
+}
+.ci-name {
+  font-family:'Playfair Display',serif;
+  font-size:14px; font-weight:600;
+  color:var(--white); line-height:1.3; margin-bottom:4px;
+}
+.ci-type {
+  font-family:'Montserrat',sans-serif;
+  font-size:8px; font-weight:500;
+  letter-spacing:2px; text-transform:uppercase;
+  color:rgba(255,255,255,0.35);
+}
+
+.cal-chips {
+  padding:26px 30px;
+  display:flex; align-items:center; gap:7px; flex-wrap:wrap;
+}
+
+.chip {
+  font-family:'Montserrat',sans-serif;
+  font-size:10.5px; font-weight:600;
+  padding:7px 14px;
+  border:1px solid; white-space:nowrap;
+}
+
+.cal-range {
+  font-family:'Cormorant Garamond',serif;
+  font-size:14px; font-style:italic;
+  color:rgba(255,255,255,0.42); margin-left:6px;
+}
+
+/* per-module colours */
+.cr-m1 .cal-info { border-left:3px solid #C9A84C; }
+.cr-m1 .ci-tag   { color:#C9A84C; }
+.cr-m1 .chip     { border-color:rgba(201,168,76,0.32); color:rgba(255,255,255,0.8); background:rgba(201,168,76,0.05); }
+
+.cr-m2 .cal-info { border-left:3px solid #4A8FA8; }
+.cr-m2 .ci-tag   { color:#5AAFC8; }
+.cr-m2 .chip     { border-color:rgba(74,143,168,0.35); color:rgba(255,255,255,0.8); background:rgba(74,143,168,0.06); }
+
+.cr-m3 .cal-info { border-left:3px solid #A85A4A; }
+.cr-m3 .ci-tag   { color:#C87A6A; }
+.cr-m3 .chip     { border-color:rgba(168,90,74,0.35); color:rgba(255,255,255,0.8); background:rgba(168,90,74,0.06); }
+
+.cr-m4 .cal-info { border-left:3px solid #7B6FC8; }
+.cr-m4 .ci-tag   { color:#9B8FE8; }
+.cr-m4 .chip     { border-color:rgba(123,111,200,0.38); color:rgba(255,255,255,0.8); background:rgba(123,111,200,0.07); }
+
+.cal-legend {
+  display:flex; gap:32px; justify-content:center; margin-top:34px;
+}
+.leg-item {
+  display:flex; align-items:center; gap:9px;
+  font-family:'Montserrat',sans-serif;
+  font-size:9px; font-weight:500;
+  letter-spacing:2px; text-transform:uppercase;
+  color:rgba(255,255,255,0.45);
+}
+.leg-dot { width:10px; height:10px; border-radius:50%; }
+
+/* ── ADMISSION ── */
+#admission { padding:120px 60px; }
+
+.adm-inner {
+  max-width:1140px; margin:0 auto;
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:80px; align-items:start;
+}
+
+.adm-req-list { list-style:none; margin-top:34px; }
+.adm-req-list li {
+  display:flex; align-items:flex-start; gap:16px;
+  padding:17px 0; border-bottom:1px solid rgba(11,27,63,0.12);
+  font-family:'Cormorant Garamond',serif;
+  font-size:18px; color:var(--text-mid);
+}
+.req-ico {
+  width:26px; height:26px;
+  border:1px solid var(--gold);
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0; margin-top:2px;
+}
+.req-ico svg { width:13px; height:13px; fill:none; stroke:var(--gold); stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round; }
+
+.price-box {
+  background:var(--navy);
+  padding:50px 42px;
+  position:relative; overflow:hidden;
+}
+.price-box::before {
+  content:''; position:absolute;
+  top:0; left:0; right:0; height:3px;
+  background: linear-gradient(90deg, var(--gold), var(--gold-light), var(--gold));
+}
+
+.pb-tag {
+  font-family:'Montserrat',sans-serif;
+  font-size:9px; font-weight:600;
+  letter-spacing:3px; text-transform:uppercase;
+  color:var(--gold); margin-bottom:18px;
+}
+.pb-title {
+  font-family:'Playfair Display',serif;
+  font-size:24px; font-weight:600;
+  color:var(--white); margin-bottom:10px;
+}
+.pb-desc {
+  font-family:'Cormorant Garamond',serif;
+  font-size:17px; color:rgba(255,255,255,0.58);
+  line-height:1.72; margin-bottom:32px;
+}
+
+.pb-options { display:flex; flex-direction:column; gap:11px; margin-bottom:34px; }
+
+.pb-opt {
+  display:flex; align-items:center; gap:14px;
+  padding:14px 18px;
+  border:1px solid rgba(201,168,76,0.18);
+}
+.pb-opt-dot {
+  width:14px; height:14px; border-radius:50%;
+  border:2px solid rgba(201,168,76,0.4); flex-shrink:0;
+}
+.pb-opt span {
+  font-family:'Cormorant Garamond',serif;
+  font-size:16px; color:rgba(255,255,255,0.72);
+}
+
+.pb-includes {
+  font-family:'Montserrat',sans-serif;
+  font-size:9px; font-weight:500;
+  letter-spacing:1.5px; text-transform:uppercase;
+  color:rgba(255,255,255,0.38); line-height:2.1;
+}
+
+.pb-cta-wrap { margin-top:36px; }
+
+/* ── FOOTER ── */
+footer {
+  background:#030A18;
+  padding:56px 60px;
+  text-align:center;
+  border-top:1px solid rgba(201,168,76,0.1);
+}
+
+.ft-logos {
+  display:flex; align-items:center; justify-content:center;
+  gap:36px; margin-bottom:24px;
+}
+.ft-logo {
+  font-family:'Playfair Display',serif;
+  font-size:14px; font-weight:600;
+  color:var(--gold); letter-spacing:3px;
+}
+.ft-sep { width:1px; height:28px; background:rgba(201,168,76,0.2); }
+
+.ft-tagline {
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic; font-size:15px;
+  color:rgba(255,255,255,0.32); margin-bottom:8px;
+}
+.ft-contact {
+  font-family:'Montserrat',sans-serif;
+  font-size:10px; letter-spacing:2px; color:var(--gold);
+  text-decoration:none;
+}
+.ft-contact:hover { color:var(--gold-light); }
+.ft-copy {
+  font-family:'Montserrat',sans-serif;
+  font-size:8px; letter-spacing:2px;
+  color:rgba(255,255,255,0.14); margin-top:20px;
+}
+
+/* ── ADMIN TRIGGER ── */
+.admin-trigger {
+  position:fixed; bottom:18px; right:18px;
+  font-family:'Montserrat',sans-serif;
+  font-size:8px; letter-spacing:2px; text-transform:uppercase;
+  color:rgba(255,255,255,0.12); background:transparent;
+  border:none; cursor:pointer; transition:color 0.3s; z-index:100;
+}
+.admin-trigger:hover { color:rgba(201,168,76,0.45); }
+
+/* ── NOTIFICATION ── */
+#notif {
+  position:fixed; bottom:56px; left:50%;
+  transform:translateX(-50%) translateY(80px);
+  background:var(--navy); border:1px solid var(--gold);
+  padding:14px 34px;
+  font-family:'Montserrat',sans-serif;
+  font-size:10px; font-weight:600;
+  letter-spacing:2px; text-transform:uppercase;
+  color:var(--gold); z-index:9000;
+  transition:transform 0.4s ease; white-space:nowrap;
+}
+#notif.show { transform:translateX(-50%) translateY(0); }
+
+/* ── LOGIN MODAL ── */
+#login-modal {
+  display:none; position:fixed; inset:0;
+  background:rgba(5,13,30,0.96); z-index:9998;
+  align-items:center; justify-content:center;
+}
+.lm-box {
+  background:var(--navy);
+  border:1px solid rgba(201,168,76,0.2);
+  padding:58px; width:390px; text-align:center;
+}
+.lm-title {
+  font-family:'Playfair Display',serif;
+  font-size:23px; color:var(--white); margin-bottom:7px;
+}
+.lm-sub {
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic; font-size:15px;
+  color:rgba(255,255,255,0.38); margin-bottom:34px;
+}
+#lm-pass {
+  width:100%; background:rgba(255,255,255,0.05);
+  border:1px solid rgba(201,168,76,0.22);
+  color:var(--white); padding:13px 18px;
+  font-family:'Cormorant Garamond',serif;
+  font-size:18px; outline:none;
+  text-align:center; letter-spacing:5px; margin-bottom:18px;
+}
+#lm-pass:focus { border-color:var(--gold); }
+#lm-err {
+  color:#ff8080; font-family:'Montserrat',sans-serif;
+  font-size:9px; letter-spacing:1px;
+  margin-bottom:14px; display:none;
+}
+.btn-lm-go {
+  width:100%; background:var(--gold); color:var(--navy);
+  border:none; padding:13px;
+  font-family:'Montserrat',sans-serif;
+  font-size:11px; font-weight:700;
+  letter-spacing:2px; text-transform:uppercase;
+  cursor:pointer; transition:background 0.3s; margin-bottom:14px;
+}
+.btn-lm-go:hover { background:var(--gold-light); }
+.btn-lm-cancel {
+  background:transparent; border:none;
+  color:rgba(255,255,255,0.3);
+  font-family:'Montserrat',sans-serif;
+  font-size:9px; letter-spacing:2px;
+  cursor:pointer; transition:color 0.3s;
+}
+.btn-lm-cancel:hover { color:rgba(255,255,255,0.65); }
+
+/* ── ADMIN PANEL ── */
+#admin-panel {
+  display:none; position:fixed; inset:0;
+  background:rgba(5,13,30,0.98); z-index:9999;
+  overflow-y:auto; padding:40px;
+}
+.ap-header {
+  display:flex; justify-content:space-between; align-items:center;
+  margin-bottom:36px; padding-bottom:18px;
+  border-bottom:1px solid rgba(201,168,76,0.18);
+}
+.ap-title {
+  font-family:'Playfair Display',serif;
+  font-size:26px; color:var(--gold);
+}
+.ap-sub {
+  font-family:'Montserrat',sans-serif;
+  font-size:9px; letter-spacing:2px;
+  color:rgba(255,255,255,0.35); margin-top:4px;
+}
+.ap-actions { display:flex; gap:12px; align-items:center; }
+
+.btn-ap-close,.btn-ap-clear,.btn-ap-export {
+  font-family:'Montserrat',sans-serif;
+  font-size:9px; font-weight:600;
+  letter-spacing:2px; text-transform:uppercase;
+  padding:9px 18px; cursor:pointer; transition:all 0.3s;
+  border:1px solid;
+}
+.btn-ap-close { color:rgba(255,255,255,0.5); border-color:rgba(255,255,255,0.2); background:transparent; }
+.btn-ap-close:hover { border-color:rgba(255,255,255,0.55); color:var(--white); }
+.btn-ap-clear { color:#ff8080; border-color:rgba(255,128,128,0.3); background:transparent; }
+.btn-ap-export { color:var(--navy); background:var(--gold); border-color:var(--gold); }
+.btn-ap-export:hover { background:var(--gold-light); }
+
+.ap-stats {
+  display:grid; grid-template-columns:repeat(3,1fr);
+  gap:14px; margin-bottom:32px;
+}
+.ap-stat {
+  background:rgba(201,168,76,0.05);
+  border:1px solid rgba(201,168,76,0.14);
+  padding:22px; text-align:center;
+}
+.ap-stat-n {
+  font-family:'Playfair Display',serif;
+  font-size:38px; color:var(--gold); display:block;
+}
+.ap-stat-l {
+  font-family:'Montserrat',sans-serif;
+  font-size:8px; letter-spacing:2px;
+  text-transform:uppercase; color:rgba(255,255,255,0.35); margin-top:4px;
+}
+
+.ap-table-wrap { overflow-x:auto; }
+.ap-table { width:100%; border-collapse:collapse; }
+.ap-table th {
+  font-family:'Montserrat',sans-serif;
+  font-size:8px; font-weight:600;
+  letter-spacing:2px; text-transform:uppercase;
+  color:var(--gold); padding:13px 14px;
+  text-align:left; border-bottom:1px solid rgba(201,168,76,0.18);
+  white-space:nowrap;
+}
+.ap-table td {
+  font-family:'Cormorant Garamond',serif;
+  font-size:15px; color:rgba(255,255,255,0.68);
+  padding:12px 14px; border-bottom:1px solid rgba(255,255,255,0.04);
+  vertical-align:top;
+}
+.ap-table tr:hover td { background:rgba(201,168,76,0.03); }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp  { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
+@keyframes fadeIn  { from{opacity:0} to{opacity:1} }
+@keyframes pulse   { 0%,100%{opacity:0.4} 50%{opacity:1} }
+
+/* ── RESPONSIVE ── */
+@media(max-width:940px){
+  nav { padding:16px 22px; }
+  .nav-links { display:none; }
+  #welcome, #sorbonne, #modules, #calendar, #admission { padding:80px 22px !important; }
+  footer { padding:48px 22px; }
+  .welcome-grid, .adm-inner { grid-template-columns:1fr; gap:44px; }
+  .mod-grid { grid-template-columns:1fr; }
+  .sorb-grid { grid-template-columns:1fr 1fr; }
+  .cal-row { grid-template-columns:1fr; }
+  .cal-info::after { display:none; }
+  .hero-stats { flex-direction:column; }
+  .hero-stat { border:1px solid rgba(201,168,76,0.2); }
+  .hero-stat:not(:last-child){ border-bottom:none; }
+  .ap-stats { grid-template-columns:1fr; }
+}
+</style>
+</head>
+<body>
+
+<div id="notif"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logos">
+    <div class="nav-logo-text">IDGP<br>ACADEMY</div>
+    <div class="nav-sep"></div>
+    <div class="nav-logo-text">IAE PARIS<br>SORBONNE</div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#welcome">Program</a></li>
+    <li><a href="#modules">Modules</a></li>
+    <li><a href="#calendar">Calendar</a></li>
+    <li><a href="#admission">Admission</a></li>
+    <li><a href="admission.html" class="nav-cta">Apply Now</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-badge">IDGP Academy × Sorbonne Business School</div>
+    <p class="hero-eyebrow">Short-Term Executive Program · 2026</p>
+    <h1>International Certificate in<br><em>Project Management</em><br>&amp; Organizational Performance</h1>
+    <p class="hero-sub">Online · Rio de Janeiro · Paris</p>
+    <p class="hero-partner">In Partnership with Université Paris 1 Panthéon-Sorbonne</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><span class="hs-num">120</span><span class="hs-lbl">Learning Hours</span></div>
+      <div class="hero-stat"><span class="hs-num">4</span><span class="hs-lbl">Integrated Modules</span></div>
+      <div class="hero-stat"><span class="hs-num">7</span><span class="hs-lbl">Months Duration</span></div>
+      <div class="hero-stat"><span class="hs-num">1</span><span class="hs-lbl">Week in Paris</span></div>
+    </div>
+    <div class="hero-ctas">
+      <a href="admission.html" class="btn-primary">Apply for 2026 Cohort</a>
+      <a href="#modules" class="btn-outline">Explore Program</a>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <span class="scroll-txt">Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- WELCOME -->
+<section id="welcome" class="s-dark">
+  <div class="welcome-grid">
+    <div class="reveal">
+      <span class="s-label">About the Program</span>
+      <div class="s-divider"></div>
+      <h2 class="s-title">Bridging Strategy<br>and <em>Execution</em></h2>
+      <p class="s-body">In a constantly evolving world, organizations need professionals capable of transforming strategy into execution. This Certificate was designed to strengthen that bridge — integrating project management excellence with strategic, financial, and human performance.</p>
+      <p class="s-body" style="margin-top:16px">Delivered jointly in Brazil and Europe, participants develop a global perspective while mastering tools, methods, and leadership practices that drive organizational value. The program aligns with IPMA standards, preparing leaders to deliver measurable results through innovation, governance, and team excellence.</p>
+    </div>
+    <div class="reveal" style="transition-delay:0.2s">
+      <div class="w-highlights">
+        <div class="wh"><div class="wh-num">120h</div><div class="wh-lbl">Total Workload</div></div>
+        <div class="wh"><div class="wh-num">4</div><div class="wh-lbl">Modules</div></div>
+        <div class="wh"><div class="wh-num">IPMA</div><div class="wh-lbl">Aligned Standards</div></div>
+        <div class="wh"><div class="wh-num">Paris</div><div class="wh-lbl">Immersion Week</div></div>
+        <div class="wh" style="grid-column:1/-1">
+          <div class="wh-num" style="font-size:26px">Sorbonne</div>
+          <div class="wh-lbl">Joint Certificate — IDGP Academy &amp; Sorbonne Business School</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SORBONNE -->
+<section id="sorbonne" class="s-darker">
+  <div class="sorb-inner">
+    <div class="reveal" style="max-width:720px">
+      <span class="s-label">About the Institution</span>
+      <div class="s-divider"></div>
+      <h2 class="s-title">Université Paris 1<br><em>Panthéon-Sorbonne</em></h2>
+      <p class="s-body">Founded in 1150, the University of Paris is one of the world's most prestigious institutions. The Sorbonne Business School (IAE Paris) operates under the French Ministry of Higher Education, combining centuries of academic excellence with contemporary executive education and European management practice.</p>
+    </div>
+    <div class="sorb-grid reveal" style="transition-delay:0.22s">
+      <div class="sorb-stat"><span class="ss-num">12th</span><span class="ss-lbl">Century — Founded</span></div>
+      <div class="sorb-stat"><span class="ss-num">60+</span><span class="ss-lbl">Nobel Prize Winners</span></div>
+      <div class="sorb-stat"><span class="ss-num">225K</span><span class="ss-lbl">Students</span></div>
+      <div class="sorb-stat"><span class="ss-num">8,400</span><span class="ss-lbl">Professors</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- MODULES -->
+<section id="modules" class="s-dark">
+  <div class="mod-inner">
+    <div class="mod-header reveal">
+      <span class="s-label">Program Structure</span>
+      <div class="s-divider center"></div>
+      <h2 class="s-title">Four Integrated <em>Modules</em></h2>
+      <p class="s-body" style="max-width:560px;margin:0 auto">Each module focuses on a key area of competence, combining global content with practical application across 30 intensive learning hours.</p>
+    </div>
+    <div class="mod-grid">
+
+      <div class="mod-card reveal">
+        <div class="mod-bg-num">01</div>
+        <div class="mod-tag">Module 1 · Rio de Janeiro · Presential</div>
+        <h3 class="mod-title">Leadership &amp; People Management</h3>
+        <div class="mod-hours">30 Hours · June 18–21, 2026</div>
+        <ul class="mod-topics">
+          <li>Stakeholder management and influence without authority</li>
+          <li>Behavioral profiles and emotional intelligence</li>
+          <li>Strategic communication, negotiation, and empathy</li>
+          <li>Situational leadership and constructive feedback</li>
+          <li>Conflict management and effective meetings</li>
+          <li>High-performance team development</li>
+        </ul>
+      </div>
+
+      <div class="mod-card reveal" style="transition-delay:0.12s">
+        <div class="mod-bg-num">02</div>
+        <div class="mod-tag">Module 2 · Online Synchronous</div>
+        <h3 class="mod-title">Foundations &amp; Strategy</h3>
+        <div class="mod-hours">30 Hours · Jul–Aug 2026 · Saturdays</div>
+        <ul class="mod-topics">
+          <li>Global trends and transformations in management models</li>
+          <li>The evolving role of the project manager</li>
+          <li>Strategic planning and performance monitoring</li>
+          <li>Portfolio and program management</li>
+          <li>Structuring PMOs and VMOs</li>
+          <li>Investment analysis and corporate finance</li>
+          <li>Governance, ethics, and sustainability</li>
+        </ul>
+      </div>
+
+      <div class="mod-card reveal" style="transition-delay:0.2s">
+        <div class="mod-bg-num">03</div>
+        <div class="mod-tag">Module 3 · Online Synchronous</div>
+        <h3 class="mod-title">Methods, Tools &amp; Operational Efficiency</h3>
+        <div class="mod-hours">30 Hours · Sep–Oct 2026 · Saturdays</div>
+        <ul class="mod-topics">
+          <li>Hybrid and agile project management approaches</li>
+          <li>Design Thinking and creative problem-solving</li>
+          <li>Decision-making under pressure: time, priorities, resources</li>
+          <li>Project planning: scope, schedule, budget, risk</li>
+          <li>Lean Six Sigma and continuous improvement</li>
+          <li>Integration of digital tools and platforms</li>
+        </ul>
+      </div>
+
+      <div class="mod-card reveal" style="transition-delay:0.3s">
+        <div class="mod-bg-num">04</div>
+        <div class="mod-tag">Module 4 · Paris · International Immersion</div>
+        <h3 class="mod-title">Innovation &amp; Practical Integration</h3>
+        <div class="mod-hours">30 Hours · November 2–6, 2026 · Sorbonne</div>
+        <ul class="mod-topics">
+          <li>Knowledge management in projects</li>
+          <li>Strategic positioning and institutional reputation</li>
+          <li>Customer journey and user experience</li>
+          <li>Innovation Hackathon: development of practical solutions</li>
+          <li>Project presentation and evaluation by expert panel</li>
+          <li>Personal and professional development planning</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CALENDAR -->
+<section id="calendar" class="s-darker">
+  <div class="cal-inner">
+    <div class="cal-header reveal">
+      <span class="s-label">Program Calendar</span>
+      <div class="s-divider center"></div>
+      <h2 class="s-title">2026 <em>Schedule</em></h2>
+    </div>
+
+    <div class="cal-rows reveal" style="transition-delay:0.1s">
+
+      <div class="cal-row cr-m1">
+        <div class="cal-info">
+          <div class="ci-tag">Module 1</div>
+          <div class="ci-name">Leadership &amp; People Management</div>
+          <div class="ci-type">Presential · Rio de Janeiro</div>
+        </div>
+        <div class="cal-chips">
+          <div class="chip">Thu 18 Jun</div>
+          <div class="chip">Fri 19 Jun</div>
+          <div class="chip">Sat 20 Jun</div>
+          <div class="chip">Sun 21 Jun</div>
+          <span class="cal-range">18–21 June 2026</span>
+        </div>
+      </div>
+
+      <div class="cal-row cr-m2">
+        <div class="cal-info">
+          <div class="ci-tag">Module 2</div>
+          <div class="ci-name">Foundations and Strategy</div>
+          <div class="ci-type">Online Synchronous Sessions</div>
+        </div>
+        <div class="cal-chips">
+          <div class="chip">Sat 25 Jul</div>
+          <div class="chip">Sat 01 Aug</div>
+          <div class="chip">Sat 15 Aug</div>
+          <div class="chip">Sat 29 Aug</div>
+          <span class="cal-range">Jul–Aug 2026</span>
+        </div>
+      </div>
+
+      <div class="cal-row cr-m3">
+        <div class="cal-info">
+          <div class="ci-tag">Module 3</div>
+          <div class="ci-name">Methods &amp; Operational Efficiency</div>
+          <div class="ci-type">Online Synchronous Sessions</div>
+        </div>
+        <div class="cal-chips">
+          <div class="chip">Sat 05 Sep</div>
+          <div class="chip">Sat 19 Sep</div>
+          <div class="chip">Sat 03 Oct</div>
+          <div class="chip">Sat 17 Oct</div>
+          <span class="cal-range">Sep–Oct 2026</span>
+        </div>
+      </div>
+
+      <div class="cal-row cr-m4">
+        <div class="cal-info">
+          <div class="ci-tag">Module 4</div>
+          <div class="ci-name">Innovation &amp; Practical Integration</div>
+          <div class="ci-type">Paris Immersion · Sorbonne</div>
+        </div>
+        <div class="cal-chips">
+          <div class="chip">Mon 02 Nov</div>
+          <div class="chip">Tue 03 Nov</div>
+          <div class="chip">Wed 04 Nov</div>
+          <div class="chip">Thu 05 Nov</div>
+          <div class="chip">Fri 06 Nov</div>
+          <span class="cal-range">2–6 Nov 2026</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="cal-legend reveal" style="transition-delay:0.3s">
+      <div class="leg-item"><div class="leg-dot" style="background:#C9A84C"></div>Presential</div>
+      <div class="leg-item"><div class="leg-dot" style="background:#4A8FA8"></div>Online</div>
+      <div class="leg-item"><div class="leg-dot" style="background:#7B6FC8"></div>International Immersion</div>
+    </div>
+  </div>
+</section>
+
+<!-- ADMISSION -->
+<section id="admission" class="s-light">
+  <div class="adm-inner">
+
+    <div class="reveal">
+      <span class="s-label">Admission</span>
+      <div class="s-divider"></div>
+      <h2 class="s-title">Who Should <em>Apply?</em></h2>
+      <p class="s-body dark">The program is designed for professionals seeking to enhance their global competence in project and organizational management — experienced leaders pursuing excellence at a globally recognized institution.</p>
+      <ul class="adm-req-list">
+        <li>
+          <div class="req-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+          Advanced level of English (spoken and written)
+        </li>
+        <li>
+          <div class="req-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+          More than 5 years of professional experience in management, leadership, or project-related roles
+        </li>
+        <li>
+          <div class="req-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+          Send CV and motivation statement to <strong>albergarias@idgp.global</strong> or apply via the form below
+        </li>
+      </ul>
+    </div>
+
+    <div class="price-box reveal" style="transition-delay:0.2s">
+      <div class="pb-tag">Investment · 2026</div>
+      <div class="pb-title">International Program</div>
+      <div class="pb-desc">The program fee includes all classes held in Brazil, the one-week immersion in France, and the official diploma awarded by Université Paris 1 Sorbonne. Airfare, accommodation, and personal expenses are not included.</div>
+      <div class="pb-options">
+        <div class="pb-opt">
+          <div class="pb-opt-dot"></div>
+          <span>BRL 42,000.00 — Full payment</span>
+        </div>
+        <div class="pb-opt">
+          <div class="pb-opt-dot"></div>
+          <span>Credit card in up to 12 installments</span>
+        </div>
+      </div>
+      <div class="pb-includes">
+        ✓ Classes in Brazil (Rio &amp; Online)<br>
+        ✓ One-week immersion at Sorbonne, Paris<br>
+        ✓ Joint Certificate IDGP + Sorbonne<br>
+        ✗ Airfare, accommodation, personal expenses
+      </div>
+      <div class="pb-cta-wrap">
+        <a href="admission.html" class="btn-primary" style="display:inline-block;text-align:center;width:100%;padding:17px 0">Apply for Admission</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft-logos">
+    <div class="ft-logo">IDGP ACADEMY</div>
+    <div class="ft-sep"></div>
+    <div class="ft-logo">IAE PARIS · SORBONNE</div>
+  </div>
+  <p class="ft-tagline">A great story of management</p>
+  <a href="mailto:albergarias@idgp.global" class="ft-contact">albergarias@idgp.global</a>
+  <p class="ft-copy">© 2026 IDGP Academy · International Certificate in Project Management and Organizational Performance</p>
+</footer>
+
+<!-- ADMIN TRIGGER (hidden) -->
+<button class="admin-trigger" onclick="openLogin()">admin</button>
+
+<!-- LOGIN MODAL -->
+<div id="login-modal">
+  <div class="lm-box">
+    <div class="lm-title">Admin Access</div>
+    <div class="lm-sub">Restricted — Authorized Personnel Only</div>
+    <input type="password" id="lm-pass" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()">
+    <div id="lm-err">Incorrect password. Try again.</div>
+    <button class="btn-lm-go" onclick="doLogin()">Access Panel</button>
+    <button class="btn-lm-cancel" onclick="closeLogin()">Cancel</button>
+  </div>
+</div>
+
+<!-- ADMIN PANEL -->
+<div id="admin-panel">
+  <div class="ap-header">
+    <div>
+      <div class="ap-title">Applications Dashboard</div>
+      <div class="ap-sub">IDGP Academy · Sorbonne Program 2026</div>
+    </div>
+    <div class="ap-actions">
+      <button class="btn-ap-export" onclick="exportCSV()">Export CSV</button>
+      <button class="btn-ap-clear" onclick="clearDB()">Clear Data</button>
+      <button class="btn-ap-close" onclick="closeAdmin()">Close</button>
+    </div>
+  </div>
+  <div class="ap-stats" id="ap-stats"></div>
+  <div class="ap-table-wrap">
+    <table class="ap-table">
+      <thead>
+        <tr>
+          <th>#</th><th>Date</th><th>Full Name</th><th>Email</th>
+          <th>Mobile</th><th>Company</th><th>Position</th>
+          <th>Industry</th><th>Experience</th><th>Degree</th>
+          <th>University</th><th>Tuition</th><th>Nationality</th>
+        </tr>
+      </thead>
+      <tbody id="ap-tbody"></tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+// ── SCROLL REVEAL ──
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); } });
+}, { threshold:0.08 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+// ── NOTIFICATION ──
+function showNotif(msg) {
+  const n = document.getElementById('notif');
+  n.textContent = msg; n.classList.add('show');
+  setTimeout(() => n.classList.remove('show'), 3200);
+}
+
+// ── DB ──
+const DB_KEY = 'idgp_sorbonne_2026';
+function getApps() { try { return JSON.parse(localStorage.getItem(DB_KEY)||'[]'); } catch(e){ return []; } }
+
+function clearDB() {
+  if(!confirm('Delete ALL application data? This cannot be undone.')) return;
+  localStorage.removeItem(DB_KEY);
+  renderAdmin(); showNotif('Data cleared.');
+}
+
+function exportCSV() {
+  const apps = getApps();
+  if(!apps.length){ showNotif('No data to export.'); return; }
+  const headers = ['#','Date','Full Name','Email','Mobile','Company','Position','Industry','Experience','Degree','University','Tuition','Nationality'];
+  const rows = apps.map((a,i) => [
+    i+1,
+    new Date(a.submittedAt).toLocaleDateString('pt-BR'),
+    a.fullName,a.email,a.mobile,a.company,a.position,
+    a.industry,a.yearsExp,a.degree,a.university,
+    a.tuition==='full'?'Full Payment':'Installments',a.nationality
+  ].map(v=>`"${String(v||'').replace(/"/g,'""')}"`).join(','));
+  const csv = [headers.join(','), ...rows].join('\n');
+  const blob = new Blob(['\uFEFF'+csv], {type:'text/csv;charset=utf-8'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'IDGP_Applications_2026.csv';
+  a.click(); showNotif('CSV exported.');
+}
+
+// ── ADMIN ──
+function openLogin() {
+  document.getElementById('login-modal').style.display='flex';
+  document.getElementById('lm-pass').value='';
+  document.getElementById('lm-err').style.display='none';
+  setTimeout(()=>document.getElementById('lm-pass').focus(),80);
+}
+function closeLogin(){ document.getElementById('login-modal').style.display='none'; }
+function doLogin() {
+  if(document.getElementById('lm-pass').value==='idgp123'){
+    closeLogin(); openAdmin();
+  } else {
+    document.getElementById('lm-err').style.display='block';
+    document.getElementById('lm-pass').value='';
+    document.getElementById('lm-pass').focus();
+  }
+}
+function openAdmin(){
+  document.getElementById('admin-panel').style.display='block';
+  document.body.style.overflow='hidden'; renderAdmin();
+}
+function closeAdmin(){
+  document.getElementById('admin-panel').style.display='none';
+  document.body.style.overflow='';
+}
+
+function renderAdmin() {
+  const apps = getApps();
+  document.getElementById('ap-stats').innerHTML=`
+    <div class="ap-stat"><span class="ap-stat-n">${apps.length}</span><span class="ap-stat-l">Total Applications</span></div>
+    <div class="ap-stat"><span class="ap-stat-n">${apps.filter(a=>a.tuition==='full').length}</span><span class="ap-stat-l">Full Payment</span></div>
+    <div class="ap-stat"><span class="ap-stat-n">${apps.filter(a=>a.tuition==='installments').length}</span><span class="ap-stat-l">Installments</span></div>
+  `;
+  const tb = document.getElementById('ap-tbody');
+  if(!apps.length){
+    tb.innerHTML=`<tr><td colspan="13" style="text-align:center;padding:36px;color:rgba(255,255,255,0.28);font-style:italic">No applications yet.</td></tr>`;
+    return;
+  }
+  tb.innerHTML=apps.map((a,i)=>`<tr>
+    <td>${i+1}</td>
+    <td>${new Date(a.submittedAt).toLocaleDateString('pt-BR')}</td>
+    <td><strong style="color:#fff">${a.fullName||'—'}</strong></td>
+    <td>${a.email||'—'}</td><td>${a.mobile||'—'}</td>
+    <td>${a.company||'—'}</td><td>${a.position||'—'}</td>
+    <td>${a.industry||'—'}</td><td>${a.yearsExp||'—'}</td>
+    <td>${a.degree||'—'}</td><td>${a.university||'—'}</td>
+    <td>${a.tuition==='full'?'Full':'Installments'}</td>
+    <td>${a.nationality||'—'}</td>
+  </tr>`).join('');
+}
+
+document.getElementById('login-modal').addEventListener('click',function(e){ if(e.target===this)closeLogin(); });
+</script>
+</body>
+</html>

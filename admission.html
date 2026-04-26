@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apply Now — International Certificate IDGP × Sorbonne</title>
+<meta name="description" content="Executive Application & Enrollment Form — International Certificate in Project Management and Organizational Performance. IDGP Academy × Sorbonne Business School.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<style>
+:root {
+  --navy:       #0B1B3F;
+  --dark:       #07122B;
+  --darkest:    #050D1E;
+  --gold:       #C9A84C;
+  --gold-light: #E8C96A;
+  --white:      #FFFFFF;
+  --off-white:  #F8F6F0;
+  --text-dark:  #1C1A16;
+  --text-mid:   #4A4438;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+
+body {
+  font-family:'Cormorant Garamond', serif;
+  background:var(--darkest);
+  color:var(--white);
+  overflow-x:hidden;
+}
+
+/* ── NAV ── */
+nav {
+  position:fixed; top:0; left:0; right:0; z-index:1000;
+  padding:16px 60px;
+  display:flex; align-items:center; justify-content:space-between;
+  background:rgba(11,27,63,0.95);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid rgba(201,168,76,0.18);
+}
+.nav-logos { display:flex; align-items:center; gap:18px; }
+.nav-logo-text {
+  font-family:'Montserrat',sans-serif;
+  font-size:10px; font-weight:600;
+  letter-spacing:2.5px; text-transform:uppercase;
+  color:var(--gold); line-height:1.4;
+}
+.nav-sep { width:1px; height:30px; background:rgba(201,168,76,0.25); }
+.nav-back {
+  font-family:'Montserrat',sans-serif;
+  font-size:9px; font-weight:600;
+  letter-spacing:2.5px; text-transform:uppercase;
+  color:rgba(255,255,255,0.55); text-decoration:none;
+  display:flex; align-items:center; gap:8px;
+  transition:color 0.3s;
+}
+.nav-back:hover { color:var(--gold); }
+.nav-back svg { width:14px; height:14px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+
+/* ── PAGE HEADER ── */
+.page-header {
+  padding:130px 60px 70px;
+  background:linear-gradient(180deg, #0B1B3F 0%, #07122B 60%, #050D1E 100%);
+  text-align:center;
+  position:relative; overflow:hidden;
+}
+.page-header::before {
+  content:'';
+  position:absolute; inset:0;
+  background-image:
+    linear-gradient(rgba(201,168,76,0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201,168,76,0.035) 1px, transparent 1px);
+  background-size:80px 80px;
+  mask-image:radial-gradient(ellipse 80% 80% at 50% 50%, black 20%, transparent 75%);
+}
+.ph-content { position:relative; z-index:2; }
+.ph-badge {
+  display:inline-flex; align-items:center; gap:14px;
+  border:1px solid rgba(201,168,76,0.35);
+  padding:7px 24px; margin-bottom:28px;
+  font-family:'Montserrat',sans-serif;
+  font-size:9px; font-weight:600;
+  letter-spacing:3.5px; text-transform:uppercase;
+  color:var(--gold);
+}
+.ph-badge::before,.ph-badge::after {
+  content:''; display:block; width:20px; height:1px;
+  background:var(--gold); opacity:0.5;
+}
+.ph-title {
+  font-family:'Playfair Display',serif;
+  font-size:clamp(30px,4.5vw,52px);
+  font-weight:600; line-height:1.15; color:var(--white);
+  margin-bottom:14px;
+}
+.ph-title em { font-style:italic; color:var(--gold-light); }
+.ph-sub {
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic; font-size:19px;
+  color:rgba(255,255,255,0.48); margin-bottom:0;
+}
+.ph-divider {
+  width:60px; height:2px; background:var(--gold);
+  margin:24px auto 0;
+}
+
+/* ── FORM WRAPPER ── */
+.form-wrap {
+  max-width:840px; margin:0 auto;
+  padding:70px 60px 100px;
+}
+
+/* ── PROGRESS BAR ── */
+.progress-bar {
+  display:flex; align-items:center; gap:0;
+  margin-bottom:60px; overflow-x:auto;
+  scrollbar-width:none;
+}
+.progress-bar::-webkit-scrollbar { display:none; }
+
+.prog-step {
+  display:flex; flex-direction:column; align-items:center;
+  flex:1; min-width:56px; position:relative; cursor:pointer;
+}
+.prog-step:not(:last-child)::after {
+  content:''; position:absolute;
+  top:14px; left:calc(50% + 14px);
+  width:calc(100% - 28px); height:1px;
+  background:rgba(201,168,76,0.18);
+}
+.prog-step.done:not(:last-child)::after,
+.prog-step.active:not(:last-child)::after { background:rgba(201,168,76,0.5); }
+
+.prog-dot {
+  width:28px; height:28px; border-radius:50%;
+  border:2px solid rgba(201,168,76,0.25);
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Montserrat',sans-serif;
+  font-size:9px; font-weight:700;
+  color:rgba(255,255,255,0.35);
+  background:rgba(11,27,63,0.9);
+  margin-bottom:7px; z-index:1;
+  transition:all 0.3s;
+}
+.prog-step.active .prog-dot {
+  border-color:var(--gold); color:var(--navy);
+  background:var(--gold);
+}
+.prog-step.done .prog-dot {
+  border-color:rgba(201,168,76,0.5);
+  color:var(--gold); background:rgba(201,168,76,0.1);
+}
+.prog-label {
+  font-family:'Montserrat',sans-serif;
+  font-size:7px; font-weight:500;
+  letter-spacing:1.5px; text-transform:uppercase;
+  color:rgba(255,255,255,0.28); text-align:center;
+  transition:color 0.3s;
+}
+.prog-step.active .prog-label { color:var(--gold); }
+.prog-step.done .prog-label { color:rgba(201,168,76,0.55); }
+
+/* ── FORM SECTIONS ── */
+.form-section { display:none; }
+.form-section.active { display:block; animation:fadeIn 0.4s ease; }
+
+.fs-header {
+  margin-bottom:32px; padding-bottom:16px;
+  border-bottom:1px solid rgba(201,168,76,0.18);
+}
+.fs-num-tag {
+  font-family:'Montserrat',sans-serif;
+  font-size:8px; font-weight:700;
+  letter-spacing:2px; text-transform:uppercase;
+  background:var(--gold); color:var(--navy);
+  padding:3px 10px; display:inline-block;
+  margin-bottom:10px;
+}
+.fs-title {
+  font-family:'Playfair Display',serif;
+  font-size:22px; font-weight:600; color:var(--white);
+}
+
+/* ── FIELDS ── */
+.fg { display:flex; flex-direction:column; gap:8px; margin-bottom:20px; }
+.fg label {
+  font-family:'Montserrat',sans-serif;
+  font-size:8.5px; font-weight:600;
+  letter-spacing:2.5px; text-transform:uppercase;
+  color:rgba(255,255,255,0.48);
+}
+.fg input,.fg select,.fg textarea {
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(201,168,76,0.2);
+  color:var(--white); padding:13px 17px;
+  font-family:'Cormorant Garamond',serif;
+  font-size:17px; outline:none; width:100%;
+  transition:border-color 0.3s, background 0.3s;
+  appearance:none; -webkit-appearance:none;
+}
+.fg input:focus,.fg select:focus,.fg textarea:focus {
+  border-color:var(--gold); background:rgba(201,168,76,0.04);
+}
+.fg input.err,.fg select.err,.fg textarea.err {
+  border-color:rgba(255,100,100,0.6);
+}
+.fg .err-msg {
+  font-family:'Montserrat',sans-serif;
+  font-size:8px; color:#ff8080; letter-spacing:1px;
+  display:none;
+}
+.fg input.err ~ .err-msg,
+.fg select.err ~ .err-msg,
+.fg textarea.err ~ .err-msg { display:block; }
+.fg select option { background:var(--navy); color:var(--white); }
+.fg textarea { resize:vertical; min-height:110px; }
+
+.fg-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+.fg-full { grid-column:1/-1; }
+
+/* ── RADIO / CHECKBOX ── */
+.radio-group,.check-group { display:flex; flex-direction:column; gap:12px; }
+.radio-row,.check-row {
+  display:flex; align-items:flex-start; gap:14px;
+  padding:13px 16px; border:1px solid rgba(201,168,76,0.16);
+  cursor:pointer; transition:border-color 0.3s;
+}
+.radio-row:hover,.check-row:hover { border-color:rgba(201,168,76,0.4); }
+.radio-row input,.check-row input {
+  width:17px; height:17px; min-width:17px;
+  margin-top:2px; accent-color:var(--gold);
+  cursor:pointer; background:transparent;
+  border:none; padding:0;
+}
+.radio-row span,.check-row span {
+  font-family:'Cormorant Garamond',serif;
+  font-size:16px; color:rgba(255,255,255,0.7);
+  line-height:1.5;
+}
+
+.ack-box {
+  background:rgba(201,168,76,0.04);
+  border:1px solid rgba(201,168,76,0.15);
+  padding:26px 26px 20px; margin-bottom:22px;
+}
+.ack-box-title {
+  font-family:'Montserrat',sans-serif;
+  font-size:8.5px; font-weight:600;
+  letter-spacing:2px; text-transform:uppercase;
+  color:var(--gold); margin-bottom:16px;
+}
+
+/* ── NAVIGATION BUTTONS ── */
+.form-nav {
+  display:flex; justify-content:space-between; align-items:center;
+  margin-top:44px; padding-top:30px;
+  border-top:1px solid rgba(201,168,76,0.12);
+}
+
+.btn-prev {
+  font-family:'Montserrat',sans-serif;
+  font-size:10px; font-weight:600;
+  letter-spacing:2px; text-transform:uppercase;
+  color:rgba(255,255,255,0.45);
+  background:transparent; border:1px solid rgba(255,255,255,0.18);
+  padding:13px 30px; cursor:pointer; transition:all 0.3s;
+}
+.btn-prev:hover { border-color:rgba(255,255,255,0.45); color:var(--white); }
+
+.btn-next,.btn-submit {
+  font-family:'Montserrat',sans-serif;
+  font-size:11px; font-weight:700;
+  letter-spacing:2.5px; text-transform:uppercase;
+  color:var(--navy); background:var(--gold);
+  border:none; padding:14px 38px;
+  cursor:pointer; transition:all 0.3s;
+}
+.btn-next:hover,.btn-submit:hover {
+  background:var(--gold-light);
+  transform:translateY(-2px);
+  box-shadow:0 6px 22px rgba(201,168,76,0.28);
+}
+
+.step-indicator {
+  font-family:'Montserrat',sans-serif;
+  font-size:9px; font-weight:500;
+  letter-spacing:2px; text-transform:uppercase;
+  color:rgba(255,255,255,0.3);
+}
+
+/* ── SUCCESS ── */
+#success-page {
+  display:none;
+  text-align:center; padding:80px 40px;
+}
+.sp-icon {
+  width:64px; height:64px; border-radius:50%;
+  border:2px solid var(--gold);
+  display:flex; align-items:center; justify-content:center;
+  margin:0 auto 28px;
+}
+.sp-icon svg { width:28px; height:28px; stroke:var(--gold); fill:none; stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round; }
+.sp-title {
+  font-family:'Playfair Display',serif;
+  font-size:34px; font-weight:600; color:var(--white);
+  margin-bottom:16px;
+}
+.sp-title em { font-style:italic; color:var(--gold-light); }
+.sp-text {
+  font-family:'Cormorant Garamond',serif;
+  font-size:19px; color:rgba(255,255,255,0.62);
+  max-width:520px; margin:0 auto 36px; line-height:1.8;
+}
+.sp-actions { display:flex; gap:16px; justify-content:center; flex-wrap:wrap; }
+
+.btn-pdf {
+  font-family:'Montserrat',sans-serif;
+  font-size:10px; font-weight:700;
+  letter-spacing:2px; text-transform:uppercase;
+  color:var(--navy); background:var(--gold);
+  border:none; padding:14px 32px;
+  cursor:pointer; transition:all 0.3s;
+  text-decoration:none; display:inline-block;
+}
+.btn-pdf:hover { background:var(--gold-light); transform:translateY(-1px); }
+
+.btn-back-home {
+  font-family:'Montserrat',sans-serif;
+  font-size:10px; font-weight:600;
+  letter-spacing:2px; text-transform:uppercase;
+  color:rgba(255,255,255,0.5);
+  background:transparent; border:1px solid rgba(255,255,255,0.2);
+  padding:14px 32px; cursor:pointer; transition:all 0.3s;
+  text-decoration:none; display:inline-block;
+}
+.btn-back-home:hover { border-color:rgba(255,255,255,0.55); color:var(--white); }
+
+/* ── NOTIFICATION ── */
+#notif {
+  position:fixed; bottom:52px; left:50%;
+  transform:translateX(-50%) translateY(80px);
+  background:var(--navy); border:1px solid var(--gold);
+  padding:13px 32px;
+  font-family:'Montserrat',sans-serif;
+  font-size:10px; font-weight:600;
+  letter-spacing:2px; text-transform:uppercase;
+  color:var(--gold); z-index:9000;
+  transition:transform 0.4s ease; white-space:nowrap;
+}
+#notif.show { transform:translateX(-50%) translateY(0); }
+
+/* ── FOOTER ── */
+.page-footer {
+  background:#030A18;
+  padding:36px 60px;
+  display:flex; align-items:center; justify-content:space-between;
+  border-top:1px solid rgba(201,168,76,0.1);
+  flex-wrap:wrap; gap:16px;
+}
+.pf-logo {
+  font-family:'Playfair Display',serif;
+  font-size:13px; font-weight:600;
+  color:var(--gold); letter-spacing:2px;
+}
+.pf-copy {
+  font-family:'Montserrat',sans-serif;
+  font-size:8px; letter-spacing:2px;
+  color:rgba(255,255,255,0.18);
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeIn { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
+
+/* ── RESPONSIVE ── */
+@media(max-width:720px){
+  nav { padding:14px 20px; }
+  .page-header { padding:110px 22px 50px; }
+  .form-wrap { padding:50px 22px 80px; }
+  .fg-grid { grid-template-columns:1fr; }
+  .progress-bar { gap:0; }
+  .prog-label { display:none; }
+}
+</style>
+</head>
+<body>
+
+<div id="notif"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logos">
+    <div class="nav-logo-text">IDGP<br>ACADEMY</div>
+    <div class="nav-sep"></div>
+    <div class="nav-logo-text">IAE PARIS<br>SORBONNE</div>
+  </div>
+  <a href="index.html" class="nav-back">
+    <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
+    Back to Program
+  </a>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="ph-content">
+    <div class="ph-badge">2026 First Cohort · Limited Seats</div>
+    <h1 class="ph-title">Executive Application<br>&amp; <em>Enrollment Form</em></h1>
+    <p class="ph-sub">International Certificate in Project Management and Organizational Performance</p>
+    <div class="ph-divider"></div>
+  </div>
+</div>
+
+<!-- FORM -->
+<div class="form-wrap">
+
+  <!-- PROGRESS -->
+  <div class="progress-bar" id="progress-bar">
+    <div class="prog-step active" data-step="1" onclick="goToStep(1)">
+      <div class="prog-dot">1</div><div class="prog-label">Personal</div>
+    </div>
+    <div class="prog-step" data-step="2" onclick="goToStep(2)">
+      <div class="prog-dot">2</div><div class="prog-label">Professional</div>
+    </div>
+    <div class="prog-step" data-step="3" onclick="goToStep(3)">
+      <div class="prog-dot">3</div><div class="prog-label">Education</div>
+    </div>
+    <div class="prog-step" data-step="4" onclick="goToStep(4)">
+      <div class="prog-dot">4</div><div class="prog-label">Questions</div>
+    </div>
+    <div class="prog-step" data-step="5" onclick="goToStep(5)">
+      <div class="prog-dot">5</div><div class="prog-label">Format</div>
+    </div>
+    <div class="prog-step" data-step="6" onclick="goToStep(6)">
+      <div class="prog-dot">6</div><div class="prog-label">Tuition</div>
+    </div>
+    <div class="prog-step" data-step="7" onclick="goToStep(7)">
+      <div class="prog-dot">7</div><div class="prog-label">Documents</div>
+    </div>
+    <div class="prog-step" data-step="8" onclick="goToStep(8)">
+      <div class="prog-dot">8</div><div class="prog-label">Terms</div>
+    </div>
+    <div class="prog-step" data-step="9" onclick="goToStep(9)">
+      <div class="prog-dot">9</div><div class="prog-label">Signature</div>
+    </div>
+  </div>
+
+  <form id="main-form" novalidate>
+
+    <!-- STEP 1 — PERSONAL -->
+    <div class="form-section active" id="step-1">
+      <div class="fs-header">
+        <div class="fs-num-tag">Section 01</div>
+        <div class="fs-title">Personal Information</div>
+      </div>
+      <div class="fg-grid">
+        <div class="fg">
+          <label>Full Name *</label>
+          <input type="text" name="fullName" required placeholder="Your full legal name">
+          <span class="err-msg">Required field</span>
+        </div>
+        <div class="fg">
+          <label>Preferred Name</label>
+          <input type="text" name="preferredName" placeholder="Optional">
+        </div>
+        <div class="fg">
+          <label>Nationality *</label>
+          <input type="text" name="nationality" required placeholder="e.g. Brazilian">
+          <span class="err-msg">Required field</span>
+        </div>
+        <div class="fg">
+          <label>Date of Birth *</label>
+          <input type="date" name="dob" required>
+          <span class="err-msg">Required field</span>
+        </div>
+        <div class="fg">
+          <label>Passport / ID Number</label>
+          <input type="text" name="passportId" placeholder="Document number">
+        </div>
+        <div class="fg">
+          <label>CPF (Brazil, if applicable)</label>
+          <input type="text" name="cpf" placeholder="000.000.000-00">
+        </div>
+        <div class="fg fg-full">
+          <label>Residential Address *</label>
+          <input type="text" name="address" required placeholder="Street, number, city, state, country">
+          <span class="err-msg">Required field</span>
+        </div>
+        <div class="fg">
+          <label>Email *</label>
+          <input type="email" name="email" required placeholder="your@email.com">
+          <span class="err-msg">Valid email required</span>
+        </div>
+        <div class="fg">
+          <label>Mobile / WhatsApp *</label>
+          <input type="tel" name="mobile" required placeholder="+55 (00) 00000-0000">
+          <span class="err-msg">Required field</span>
+        </div>
+        <div class="fg fg-full">
+          <label>LinkedIn Profile</label>
+          <input type="url" name="linkedin" placeholder="https://linkedin.com/in/yourprofile">
+        </div>
+      </div>
+      <div class="form-nav">
+        <span></span>
+        <span class="step-indicator">Step 1 of 9</span>
+        <button type="button" class="btn-next" onclick="nextStep(1)">Continue →</button>
+      </div>
+    </div>
+
+    <!-- STEP 2 — PROFESSIONAL -->
+    <div class="form-section" id="step-2">
+      <div class="fs-header">
+        <div class="fs-num-tag">Section 02</div>
+        <div class="fs-title">Professional Profile</div>
+      </div>
+      <div class="fg-grid">
+        <div class="fg">
+          <label>Current Company *</label>
+          <input type="text" name="company" required>
+          <span class="err-msg">Required field</span>
+        </div>
+        <div class="fg">
+          <label>Current Position / Title *</label>
+          <input type="text" name="position" required>
+          <span class="err-msg">Required field</span>
+        </div>
+        <div class="fg">
+          <label>Industry Sector *</label>
+          <input type="text" name="industry" required>
+          <span class="err-msg">Required field</span>
+        </div>
+        <div class="fg">
+          <label>Years of Professional Experience *</label>
+          <select name="yearsExp" required>
+            <option value="" disabled selected>Select range</option>
+            <option>5–8 years</option>
+            <option>9–12 years</option>
+            <option>13–18 years</option>
+            <option>19–25 years</option>
+            <option>25+ years</option>
+          </select>
+          <span class="err-msg">Required field</span>
+        </div>
+        <div class="fg fg-full">
+          <label>Do you currently hold leadership responsibilities? *</label>
+          <div class="radio-group" style="flex-direction:row;gap:14px;flex-wrap:wrap">
+            <label class="radio-row" style="flex:1;min-width:130px">
+              <input type="radio" name="leadership" value="Yes" required> <span>Yes</span>
+            </label>
+            <label class="radio-row" style="flex:1;min-width:130px">
+              <input type="radio" name="leadership" value="No"> <span>No</span>
+            </label>
+          </div>
+        </div>
+        <div class="fg fg-full">
+          <label>Team Size / Scope Managed</label>
+          <input type="text" name="teamSize" placeholder="e.g. 15 direct reports, regional scope">
+        </div>
+      </div>
+      <div class="form-nav">
+        <button type="button" class="btn-prev" onclick="prevStep(2)">← Back</button>
+        <span class="step-indicator">Step 2 of 9</span>
+        <button type="button" class="btn-next" onclick="nextStep(2)">Continue →</button>
+      </div>
+    </div>
+
+    <!-- STEP 3 — EDUCATION -->
+    <div class="form-section" id="step-3">
+      <div class="fs-header">
+        <div class="fs-num-tag">Section 03</div>
+        <div class="fs-title">Education Background</div>
+      </div>
+      <div class="fg-grid">
+        <div class="fg">
+          <label>Highest Degree Completed *</label>
+          <select name="degree" required>
+            <option value="" disabled selected>Select degree</option>
+            <option>Bachelor's Degree</option>
+            <option>Postgraduate / Specialization</option>
+            <option>MBA</option>
+            <option>Master's Degree</option>
+            <option>Doctorate / PhD</option>
+          </select>
+          <span class="err-msg">Required field</span>
+        </div>
+        <div class="fg">
+          <label>University / Institution *</label>
+          <input type="text" name="university" required>
+          <span class="err-msg">Required field</span>
+        </div>
+        <div class="fg fg-full">
+          <label>Professional Certifications (PMP, IPMA, MBA, etc.)</label>
+          <input type="text" name="certifications" placeholder="List any relevant certifications">
+        </div>
+      </div>
+      <div class="form-nav">
+        <button type="button" class="btn-prev" onclick="prevStep(3)">← Back</button>
+        <span class="step-indicator">Step 3 of 9</span>
+        <button type="button" class="btn-next" onclick="nextStep(3)">Continue →</button>
+      </div>
+    </div>
+
+    <!-- STEP 4 — APPLICATION QUESTIONS -->
+    <div class="form-section" id="step-4">
+      <div class="fs-header">
+        <div class="fs-num-tag">Section 04</div>
+        <div class="fs-title">Application Questions</div>
+      </div>
+      <div class="fg">
+        <label>1. Why would you like to join this program? *</label>
+        <textarea name="motivation" required rows="5" placeholder="Share your motivation and professional objectives..."></textarea>
+        <span class="err-msg">Required field</span>
+      </div>
+      <div class="fg">
+        <label>2. What professional challenge are you currently facing? *</label>
+        <textarea name="challenge" required rows="5" placeholder="Describe a key professional challenge you are navigating..."></textarea>
+        <span class="err-msg">Required field</span>
+      </div>
+      <div class="fg">
+        <label>3. What do you expect from the international experience with Sorbonne / IAE Paris? *</label>
+        <textarea name="expectation" required rows="5" placeholder="Your expectations from the Paris immersion week..."></textarea>
+        <span class="err-msg">Required field</span>
+      </div>
+      <div class="form-nav">
+        <button type="button" class="btn-prev" onclick="prevStep(4)">← Back</button>
+        <span class="step-indicator">Step 4 of 9</span>
+        <button type="button" class="btn-next" onclick="nextStep(4)">Continue →</button>
+      </div>
+    </div>
+
+    <!-- STEP 5 — FORMAT ACKNOWLEDGMENT -->
+    <div class="form-section" id="step-5">
+      <div class="fs-header">
+        <div class="fs-num-tag">Section 05</div>
+        <div class="fs-title">Program Format Acknowledgment</div>
+      </div>
+      <div class="ack-box">
+        <div class="ack-box-title">I understand that the Program includes:</div>
+        <div class="check-group">
+          <label class="check-row">
+            <input type="checkbox" name="ack1" checked>
+            <span>Executive Immersion in Rio de Janeiro — 18 to 21 June 2026</span>
+          </label>
+          <label class="check-row">
+            <input type="checkbox" name="ack2" checked>
+            <span>Live Online Synchronous Sessions (biweekly Saturdays) — July to October 2026</span>
+          </label>
+          <label class="check-row">
+            <input type="checkbox" name="ack3" checked>
+            <span>International Immersion in Paris — 2 to 6 November 2026</span>
+          </label>
+          <label class="check-row">
+            <input type="checkbox" name="ack4" checked>
+            <span>Total workload of 120 learning hours structured in 4 integrated modules</span>
+          </label>
+        </div>
+      </div>
+      <div class="form-nav">
+        <button type="button" class="btn-prev" onclick="prevStep(5)">← Back</button>
+        <span class="step-indicator">Step 5 of 9</span>
+        <button type="button" class="btn-next" onclick="nextStep(5)">Continue →</button>
+      </div>
+    </div>
+
+    <!-- STEP 6 — TUITION -->
+    <div class="form-section" id="step-6">
+      <div class="fs-header">
+        <div class="fs-num-tag">Section 06</div>
+        <div class="fs-title">Tuition Option</div>
+      </div>
+      <div class="radio-group">
+        <label class="radio-row">
+          <input type="radio" name="tuition" value="full" required>
+          <span><strong>BRL 42,000.00 — Full payment</strong></span>
+        </label>
+        <label class="radio-row">
+          <input type="radio" name="tuition" value="installments">
+          <span>Credit card installments in up to 12 payments, subject to charges and interest imposed by the payment processor / card operator</span>
+        </label>
+      </div>
+      <p style="font-family:'Cormorant Garamond',serif;font-size:14px;color:rgba(255,255,255,0.3);margin-top:16px;font-style:italic">
+        Invoices issued by IDGP Academy correspond to the tuition amount received by IDGP, excluding third-party financing or card installment charges.
+      </p>
+      <div class="form-nav">
+        <button type="button" class="btn-prev" onclick="prevStep(6)">← Back</button>
+        <span class="step-indicator">Step 6 of 9</span>
+        <button type="button" class="btn-next" onclick="nextStep(6)">Continue →</button>
+      </div>
+    </div>
+
+    <!-- STEP 7 — DOCUMENTS -->
+    <div class="form-section" id="step-7">
+      <div class="fs-header">
+        <div class="fs-num-tag">Section 07</div>
+        <div class="fs-title">Required Documents</div>
+      </div>
+      <p style="font-family:'Cormorant Garamond',serif;font-size:17px;color:rgba(255,255,255,0.55);margin-bottom:22px;font-style:italic">
+        Please attach or send after submission to albergarias@idgp.global:
+      </p>
+      <div class="check-group">
+        <label class="check-row"><input type="checkbox" name="doc1"><span>Passport or ID</span></label>
+        <label class="check-row"><input type="checkbox" name="doc2"><span>Updated CV / Résumé</span></label>
+        <label class="check-row"><input type="checkbox" name="doc3"><span>LinkedIn Profile (URL provided above)</span></label>
+        <label class="check-row"><input type="checkbox" name="doc4"><span>Professional Photo (optional)</span></label>
+      </div>
+      <div class="form-nav">
+        <button type="button" class="btn-prev" onclick="prevStep(7)">← Back</button>
+        <span class="step-indicator">Step 7 of 9</span>
+        <button type="button" class="btn-next" onclick="nextStep(7)">Continue →</button>
+      </div>
+    </div>
+
+    <!-- STEP 8 — TERMS -->
+    <div class="form-section" id="step-8">
+      <div class="fs-header">
+        <div class="fs-num-tag">Section 08</div>
+        <div class="fs-title">Terms &amp; Conditions</div>
+      </div>
+      <p style="font-family:'Cormorant Garamond',serif;font-size:17px;color:rgba(255,255,255,0.55);margin-bottom:22px;font-style:italic">
+        By submitting this form, I acknowledge and accept that:
+      </p>
+      <div class="check-group">
+        <label class="check-row"><input type="checkbox" name="terms1" required><span>Admission is subject to review and final confirmation.</span></label>
+        <label class="check-row"><input type="checkbox" name="terms2" required><span>Dates, faculty members, venues and delivery formats may be reasonably adjusted when necessary.</span></label>
+        <label class="check-row"><input type="checkbox" name="terms3" required><span>International travel components require passport, visa (if applicable), insurance and personal travel arrangements by the participant.</span></label>
+        <label class="check-row"><input type="checkbox" name="terms4" required><span>Certificate issuance may require attendance, participation and full financial settlement.</span></label>
+        <label class="check-row"><input type="checkbox" name="terms5" required><span>My personal data may be used for admissions, academic administration and program communication purposes.</span></label>
+        <label class="check-row"><input type="checkbox" name="terms6" required><span>I agree with the Enrollment Terms and Conditions of the Program.</span></label>
+      </div>
+      <div class="form-nav">
+        <button type="button" class="btn-prev" onclick="prevStep(8)">← Back</button>
+        <span class="step-indicator">Step 8 of 9</span>
+        <button type="button" class="btn-next" onclick="nextStep(8)">Continue →</button>
+      </div>
+    </div>
+
+    <!-- STEP 9 — SIGNATURE -->
+    <div class="form-section" id="step-9">
+      <div class="fs-header">
+        <div class="fs-num-tag">Section 09</div>
+        <div class="fs-title">Signature</div>
+      </div>
+      <div class="fg-grid">
+        <div class="fg">
+          <label>Full Name (as signature) *</label>
+          <input type="text" name="sigName" required>
+          <span class="err-msg">Required field</span>
+        </div>
+        <div class="fg">
+          <label>Date *</label>
+          <input type="date" name="sigDate" id="sig-date" required>
+          <span class="err-msg">Required field</span>
+        </div>
+        <div class="fg fg-full">
+          <label>Digital Signature — Type your full name *</label>
+          <input type="text" name="signature" required placeholder="Type your full name as digital signature">
+          <span class="err-msg">Required field</span>
+        </div>
+      </div>
+      <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:16px;color:rgba(255,255,255,0.35);margin-top:20px;text-align:center">
+        This first cohort has limited seats and a selective admissions process. We look forward to reviewing your application.
+      </p>
+      <div class="form-nav">
+        <button type="button" class="btn-prev" onclick="prevStep(9)">← Back</button>
+        <span class="step-indicator">Step 9 of 9</span>
+        <button type="submit" class="btn-submit">Submit Application</button>
+      </div>
+    </div>
+
+  </form>
+
+  <!-- SUCCESS -->
+  <div id="success-page">
+    <div class="sp-icon">
+      <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+    </div>
+    <h2 class="sp-title">Application <em>Submitted</em></h2>
+    <p class="sp-text">Thank you for applying to the International Certificate in Project Management and Organizational Performance. Our team will review your application and be in touch shortly.</p>
+    <div class="sp-actions">
+      <button class="btn-pdf" onclick="downloadPDF()">Download Application PDF</button>
+      <a href="index.html" class="btn-back-home">← Back to Program</a>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer class="page-footer">
+  <div class="pf-logo">IDGP ACADEMY × IAE PARIS · SORBONNE</div>
+  <div class="pf-copy">© 2026 IDGP Academy · International Certificate in Project Management and Organizational Performance</div>
+</footer>
+
+<script>
+// ── STATE ──
+let currentStep = 1;
+const TOTAL_STEPS = 9;
+const DB_KEY = 'idgp_sorbonne_2026';
+let lastSubmission = null;
+
+// Set today's date
+document.getElementById('sig-date').value = new Date().toISOString().split('T')[0];
+
+// ── NOTIFICATION ──
+function showNotif(msg) {
+  const n = document.getElementById('notif');
+  n.textContent = msg; n.classList.add('show');
+  setTimeout(() => n.classList.remove('show'), 3000);
+}
+
+// ── PROGRESS ──
+function updateProgress(step) {
+  document.querySelectorAll('.prog-step').forEach((el, i) => {
+    el.classList.remove('active','done');
+    const s = parseInt(el.dataset.step);
+    if (s === step) el.classList.add('active');
+    else if (s < step) el.classList.add('done');
+  });
+}
+
+// ── NAVIGATION ──
+function showStep(step) {
+  document.querySelectorAll('.form-section').forEach(s => s.classList.remove('active'));
+  const el = document.getElementById(`step-${step}`);
+  if(el) { el.classList.add('active'); window.scrollTo({top:0,behavior:'smooth'}); }
+  updateProgress(step);
+  currentStep = step;
+}
+
+function goToStep(step) {
+  if(step < currentStep) showStep(step);
+}
+
+function prevStep(current) { showStep(current - 1); }
+
+function nextStep(current) {
+  if(!validateStep(current)) return;
+  showStep(current + 1);
+}
+
+// ── VALIDATION ──
+function validateStep(step) {
+  const section = document.getElementById(`step-${step}`);
+  let valid = true;
+
+  // Clear previous errors
+  section.querySelectorAll('.err').forEach(el => el.classList.remove('err'));
+
+  // Required inputs / selects / textareas
+  section.querySelectorAll('[required]').forEach(el => {
+    if(el.type === 'checkbox') {
+      if(!el.checked) { markErr(el); valid = false; }
+    } else if(el.type === 'radio') {
+      const name = el.name;
+      const group = section.querySelectorAll(`[name="${name}"]`);
+      const checked = Array.from(group).some(r => r.checked);
+      if(!checked) { markErr(el); valid = false; }
+    } else {
+      if(!el.value.trim()) { markErr(el); valid = false; }
+    }
+  });
+
+  // Email format
+  const emailEl = section.querySelector('[type="email"]');
+  if(emailEl && emailEl.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailEl.value)) {
+    markErr(emailEl); valid = false;
+  }
+
+  if(!valid) showNotif('Please fill in all required fields.');
+  return valid;
+}
+
+function markErr(el) {
+  el.classList.add('err');
+  el.addEventListener('input', () => el.classList.remove('err'), {once:true});
+  el.addEventListener('change', () => el.classList.remove('err'), {once:true});
+}
+
+// ── DB ──
+function saveApplication(data) {
+  try {
+    const apps = JSON.parse(localStorage.getItem(DB_KEY)||'[]');
+    apps.push({ ...data, submittedAt: new Date().toISOString() });
+    localStorage.setItem(DB_KEY, JSON.stringify(apps));
+  } catch(e) { console.error('DB error', e); }
+}
+
+// ── FORM SUBMIT ──
+document.getElementById('main-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  if(!validateStep(9)) return;
+
+  const fd = new FormData(this);
+  const data = {};
+  fd.forEach((v,k) => { data[k] = v; });
+
+  saveApplication(data);
+  lastSubmission = data;
+
+  document.getElementById('main-form').style.display = 'none';
+  document.querySelector('.progress-bar').style.display = 'none';
+  document.getElementById('success-page').style.display = 'block';
+  window.scrollTo({top:0,behavior:'smooth'});
+
+  showNotif('Application submitted!');
+  sendEmail(data);
+});
+
+// ── EMAIL ──
+// EmailJS integration — configure at https://www.emailjs.com
+// See README.md for full setup instructions.
+function sendEmail(data) {
+  /*
+  // UNCOMMENT AND CONFIGURE AFTER SETTING UP EMAILJS:
+  emailjs.init("YOUR_PUBLIC_KEY");
+  emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
+    to_email:       "albergarias@idgp.global",
+    subject:        "Nova Inscrição - Programa Sorbonne",
+    applicant_name: data.fullName,
+    applicant_email:data.email,
+    applicant_mobile:data.mobile,
+    company:        data.company,
+    position:       data.position,
+    industry:       data.industry,
+    experience:     data.yearsExp,
+    tuition:        data.tuition==='full'?'Pagamento integral BRL 42.000':'Parcelado até 12x',
+    motivation:     data.motivation,
+    submitted_at:   new Date().toLocaleString('pt-BR'),
+  });
+  */
+
+  // Fallback: mailto
+  const s = encodeURIComponent("Nova Inscrição - Programa Sorbonne");
+  const b = encodeURIComponent(
+    `Nova inscrição recebida — IDGP × Sorbonne 2026\n\n`+
+    `Nome: ${data.fullName}\nEmail: ${data.email}\nTelefone: ${data.mobile}\n`+
+    `Empresa: ${data.company}\nCargo: ${data.position}\nSetor: ${data.industry}\n`+
+    `Experiência: ${data.yearsExp}\nFormação: ${data.degree} — ${data.university}\n`+
+    `Pagamento: ${data.tuition==='full'?'Integral':'Parcelado'}\n`+
+    `Motivação: ${data.motivation}\n\nData: ${new Date().toLocaleString('pt-BR')}`
+  );
+  setTimeout(()=>{ window.location.href=`mailto:albergarias@idgp.global?subject=${s}&body=${b}`; }, 1200);
+}
+
+// ── PDF ──
+function downloadPDF() {
+  if(!lastSubmission) return;
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ orientation:'portrait', unit:'mm', format:'a4' });
+  const navy=[11,27,63], gold=[201,168,76], white=[255,255,255], lgray=[100,95,85];
+  const d = lastSubmission;
+
+  // Header
+  doc.setFillColor(...navy); doc.rect(0,0,210,52,'F');
+  doc.setFillColor(...gold); doc.rect(0,52,210,2,'F');
+  doc.setTextColor(...white);
+  doc.setFont('times','bold'); doc.setFontSize(15);
+  doc.text('INTERNATIONAL CERTIFICATE IN PROJECT MANAGEMENT',105,16,{align:'center'});
+  doc.setFont('times','normal'); doc.setFontSize(12);
+  doc.text('AND ORGANIZATIONAL PERFORMANCE',105,24,{align:'center'});
+  doc.setTextColor(...gold); doc.setFontSize(9);
+  doc.text('IDGP ACADEMY × IAE PARIS — SORBONNE BUSINESS SCHOOL',105,33,{align:'center'});
+  doc.setTextColor(210,200,180); doc.setFontSize(8.5);
+  doc.text('Executive Application & Enrollment Form · 2026 Cohort',105,42,{align:'center'});
+
+  let y=64;
+
+  function secHead(title) {
+    if(y>270){doc.addPage();y=20;}
+    doc.setFillColor(238,234,225); doc.rect(10,y-5,190,10,'F');
+    doc.setFillColor(...gold); doc.rect(10,y-5,3,10,'F');
+    doc.setTextColor(...navy); doc.setFontSize(8.5); doc.setFont('helvetica','bold');
+    doc.text(title.toUpperCase(),16,y+1.5); y+=13; doc.setFont('helvetica','normal');
+  }
+
+  function row(lbl,val) {
+    if(y>272){doc.addPage();y=20;}
+    doc.setTextColor(...lgray); doc.setFontSize(7); doc.setFont('helvetica','bold');
+    doc.text(lbl+':',12,y);
+    doc.setTextColor(28,24,20); doc.setFontSize(8.5); doc.setFont('helvetica','normal');
+    const lines=doc.splitTextToSize(String(val||'—'),132);
+    doc.text(lines,62,y); y+=Math.max(6.5,lines.length*5);
+  }
+
+  secHead('Section 1 — Personal Information');
+  row('Full Name',d.fullName); row('Preferred Name',d.preferredName);
+  row('Nationality',d.nationality); row('Date of Birth',d.dob);
+  row('Passport / ID',d.passportId); row('CPF',d.cpf);
+  row('Address',d.address); row('Email',d.email);
+  row('Mobile / WhatsApp',d.mobile); row('LinkedIn',d.linkedin); y+=3;
+
+  secHead('Section 2 — Professional Profile');
+  row('Company',d.company); row('Position',d.position);
+  row('Industry',d.industry); row('Experience',d.yearsExp);
+  row('Leadership',d.leadership); row('Team/Scope',d.teamSize); y+=3;
+
+  secHead('Section 3 — Education Background');
+  row('Degree',d.degree); row('University',d.university);
+  row('Certifications',d.certifications); y+=3;
+
+  secHead('Section 4 — Application Questions');
+  row('1. Motivation',d.motivation);
+  row('2. Challenge',d.challenge);
+  row('3. Expectations (Paris)',d.expectation); y+=3;
+
+  secHead('Section 6 — Tuition Option');
+  row('Selected',d.tuition==='full'?'BRL 42,000.00 — Full payment':'Credit card installments (up to 12x)'); y+=3;
+
+  secHead('Section 9 — Signature');
+  row('Full Name',d.sigName); row('Date',d.sigDate);
+  row('Digital Signature',d.signature);
+
+  // Footer all pages
+  const np=doc.getNumberOfPages();
+  for(let i=1;i<=np;i++){
+    doc.setPage(i);
+    doc.setFillColor(...navy); doc.rect(0,285,210,12,'F');
+    doc.setTextColor(...gold); doc.setFontSize(6.5);
+    doc.text('IDGP ACADEMY × SORBONNE BUSINESS SCHOOL · 2026 COHORT',10,291);
+    doc.setTextColor(160,150,130); doc.text(`${i}/${np}`,200,291,{align:'right'});
+  }
+
+  const fname=(d.fullName||'Application').replace(/\s+/g,'_');
+  doc.save(`IDGP_Sorbonne_Application_${fname}.pdf`);
+  showNotif('PDF downloaded.');
+}
+</script>
+</body>
+</html>
